@@ -1,0 +1,49 @@
+# Bibliothèque BUD — Règles de développement
+
+## Contexte
+Application web de gestion de bibliothèque pour la Bibliothèque Universitaire de Dakar (BUD).
+Stack : Laravel 13, PHP 8.3+, MySQL 8.0, Blade, Tailwind CSS, Alpine.js, Livewire, Breeze, Spatie Permission.
+
+## Architecture (obligatoire)
+- **Contrôleur** → délègue à un **Service**
+- **Service** → logique métier, utilise les **Repositories**
+- **Repository** → accès aux données uniquement
+- **Form Request** → validation
+- **Policy** → autorisation
+- **DTO** → transfert de données entre couches
+- **Enum** → statuts et types
+- Jamais de logique métier ni de requêtes DB dans les contrôleurs
+
+## Rôles (Spatie Permission)
+- `admin` : accès total
+- `bibliothecaire` : gestion ouvrages, adhérents, prêts, pénalités, statistiques
+- `adherent` : catalogue, mes prêts, prolongation, mes pénalités
+
+## Conventions
+- Modèle utilisateur : `User` (table `users`)
+- Langue interface : **français**
+- Devise : **FCFA** (config `config/bibliotheque.php`)
+- Inscription publique : **désactivée** (adhérents créés par le bibliothécaire)
+- Layouts : `admin.blade.php`, `adherent.blade.php`, `guest.blade.php`
+- PSR-12, PHPDoc sur méthodes complexes
+
+## Modules (ordre de développement)
+0. Fondations (auth, rôles, layouts, middlewares)
+1. Ouvrages → 2. Adhérents → 3. Prêts → 4. Pénalités → 5. Espace adhérent → 6. Statistiques → 7. Administration
+
+## Fichiers de config clés
+- `config/bibliotheque.php` : durées prêt, tarifs pénalités, seuil blocage
+- `config/permissions.php` : mapping rôles → permissions
+
+## Structure dossiers
+```
+app/DTO/, app/Enums/, app/Services/, app/Repositories/, app/Repositories/Interfaces/
+app/Traits/, app/Exceptions/, app/Helpers/, app/Http/Resources/
+```
+
+## UI
+- Tailwind CSS, palette neutre (bleu marine + blanc)
+- Composants Blade réutilisables dans `resources/views/components/`
+
+## Référence
+Voir `PROJECT_OVERVIEW.md` pour la structure complète, les entités et les relations.
