@@ -17,8 +17,8 @@ class ForcePasswordChange
     {
         if (auth()->check() && auth()->user()->must_change_password) {
             $currentRouteName = $request->route() ? $request->route()->getName() : null;
-            if (!in_array($currentRouteName, ['adherent.password.force-change', 'adherent.password.force-change.store', 'logout'])) {
-                return redirect()->route('adherent.password.force-change');
+            if (!in_array($currentRouteName, ['password.force-change', 'password.force-change.store', 'logout'])) {
+                return redirect()->route('password.force-change');
             }
         }
         return $next($request);

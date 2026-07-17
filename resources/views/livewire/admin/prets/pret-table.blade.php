@@ -41,11 +41,11 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900">{{ $pret->date_retour_prevue->format('d/m/Y') }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         @if($pret->statut === 'en_cours')
-                            <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">En cours</span>
+                            <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-xl">En cours</span>
                         @elseif($pret->statut === 'rendu')
-                            <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">Rendu</span>
+                            <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-xl">Rendu</span>
                         @elseif($pret->statut === 'retard')
-                            <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">En retard</span>
+                            <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-xl">En retard</span>
                         @endif
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">

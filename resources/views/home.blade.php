@@ -7,12 +7,12 @@
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
     <!-- Left Column: Hero & Features -->
     <div class="lg:col-span-7 space-y-6 text-left">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase">
             ⚡ Phase 0 terminée - Fondations Actives
         </div>
         
-        <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-            Accédez au savoir de la <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">Bibliothèque BUD</span>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight font-poppins">
+            Accédez au savoir de <span class="text-secondary">BiblioSmart</span>
         </h1>
         
         <p class="text-slate-400 text-base md:text-lg max-w-xl">
@@ -59,7 +59,7 @@
     <div class="lg:col-span-5 w-full">
         <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 shadow-2xl rounded-2xl p-6 sm:p-8 space-y-6 text-left relative overflow-hidden">
             <!-- Glow effect inside card -->
-            <div class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl"></div>
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-500/10 rounded-xl blur-2xl"></div>
 
             <div class="space-y-2">
                 <h2 class="text-2xl font-bold text-white">Prêt à commencer ?</h2>
@@ -67,7 +67,7 @@
             </div>
 
             <!-- Login button -->
-            <a href="{{ route('login') }}" class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-95 text-white py-3 text-base font-bold shadow-lg shadow-indigo-500/25 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-center">
+            <a href="{{ route('login') }}" class="w-full inline-flex items-center justify-center rounded-xl bg-secondary hover:bg-blue-600 text-white py-3 text-base font-bold shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-center">
                 Se connecter
             </a>
 

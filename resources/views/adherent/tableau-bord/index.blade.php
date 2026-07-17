@@ -8,7 +8,7 @@
     <!-- Welcome Section -->
     <section>
         <div class="flex items-center gap-4 mb-2">
-            <h1 class="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900">
+            <h1 class="font-poppins text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900">
                 Bonjour, {{ $adherent->prenom }} <span class="wave text-2xl">👋</span>
             </h1>
         </div>
@@ -16,15 +16,15 @@
     </section>
 
     <!-- Stats Grid -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <section class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         <!-- Emprunts -->
         <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/60 relative overflow-hidden group">
             <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                <svg class="w-16 h-16 text-editorial" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+                <svg class="w-16 h-16 text-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
             </div>
             <p class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">Prêts en cours</p>
             <div class="flex items-baseline gap-2">
-                <span class="text-4xl font-serif font-bold text-slate-900">{{ $pretsEnCours->count() }}</span>
+                <span class="text-4xl font-poppins font-bold text-slate-900">{{ $pretsEnCours->count() }}</span>
                 <span class="text-slate-500 font-medium">/ {{ $quota }}</span>
             </div>
             <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
@@ -36,7 +36,7 @@
                         Tout est à jour
                     @endif
                 </span>
-                <a href="{{ route('adherent.prets.index') }}" class="text-sm font-medium text-editorial hover:text-editorial-light transition-colors">Gérer &rarr;</a>
+                <a href="{{ route('adherent.prets.index') }}" class="text-sm font-medium text-primary hover:text-primary-light transition-colors">Gérer &rarr;</a>
             </div>
         </div>
 
@@ -47,7 +47,7 @@
             </div>
             <p class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">Pénalités</p>
             <div class="flex items-baseline gap-2">
-                <span class="text-4xl font-serif font-bold {{ $totalImpaye > 0 ? 'text-amber-600' : 'text-emerald-600' }}">
+                <span class="text-4xl font-poppins font-bold {{ $totalImpaye > 0 ? 'text-amber-600' : 'text-emerald-600' }}">
                     {{ number_format($totalImpaye, 0, ',', ' ') }}
                 </span>
                 <span class="text-slate-500 font-medium">FCFA</span>
@@ -56,18 +56,18 @@
                 <span class="text-sm {{ $totalImpaye > 0 ? 'text-amber-600 font-medium' : 'text-slate-500' }}">
                     {{ $penalites->count() }} facture(s)
                 </span>
-                <a href="{{ route('adherent.penalites.index') }}" class="text-sm font-medium text-editorial hover:text-editorial-light transition-colors">Détails &rarr;</a>
+                <a href="{{ route('adherent.penalites.index') }}" class="text-sm font-medium text-primary hover:text-primary-light transition-colors">Détails &rarr;</a>
             </div>
         </div>
 
         <!-- Validité -->
-        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/60 relative overflow-hidden group">
+        <div class="col-span-2 md:col-span-1 bg-white rounded-3xl p-6 shadow-sm border border-slate-200/60 relative overflow-hidden group">
             <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
                 <svg class="w-16 h-16 text-emerald-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
             </div>
             <p class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">Mon Abonnement</p>
             <div class="flex flex-col justify-center h-[40px]">
-                <span class="text-2xl font-serif font-bold text-slate-900">{{ $adherent->typeAdherent->nom }}</span>
+                <span class="text-2xl font-poppins font-bold text-slate-900">{{ $adherent->typeAdherent->nom }}</span>
             </div>
             <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
                 <span class="text-sm text-slate-500">
@@ -86,8 +86,8 @@
             <!-- Mes Livres -->
             <section>
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="font-serif text-2xl font-semibold text-slate-900">Mes lectures en cours</h2>
-                    <a href="{{ route('adherent.prets.index') }}" class="text-sm font-medium text-slate-500 hover:text-editorial transition-colors">Tout voir</a>
+                    <h2 class="font-poppins text-2xl font-semibold text-slate-900">Mes lectures en cours</h2>
+                    <a href="{{ route('adherent.prets.index') }}" class="text-sm font-medium text-slate-500 hover:text-primary transition-colors">Tout voir</a>
                 </div>
                 
                 @if($pretsEnCours->isEmpty())
@@ -97,7 +97,7 @@
                         </div>
                         <h3 class="text-lg font-medium text-slate-900 mb-1">Aucun livre en cours</h3>
                         <p class="text-slate-500 text-sm mb-6">Vous n'avez pas encore emprunté d'ouvrage. Explorez notre catalogue pour trouver votre prochaine lecture.</p>
-                        <a href="{{ route('adherent.catalogue.index') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-editorial hover:bg-editorial-light text-white font-medium rounded-xl transition-colors shadow-sm shadow-editorial/20">
+                        <a href="{{ route('adherent.catalogue.index') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-secondary hover:bg-blue-500 text-white font-medium rounded-xl transition-colors shadow-sm shadow-secondary/20">
                             Explorer le catalogue
                         </a>
                     </div>
@@ -118,7 +118,7 @@
                                     @endif
                                 </div>
                                 <div class="flex-1 flex flex-col justify-center">
-                                    <h3 class="font-bold text-slate-900 leading-tight mb-1 line-clamp-2 group-hover:text-editorial transition-colors">
+                                    <h3 class="font-bold text-slate-900 leading-tight mb-1 line-clamp-2 group-hover:text-primary transition-colors">
                                         <a href="{{ route('adherent.prets.show', $pret->id) }}">{{ $pret->exemplaire->ouvrage->titre }}</a>
                                     </h3>
                                     <p class="text-xs text-slate-500 mb-2">{{ $pret->exemplaire->ouvrage->auteurs ?: 'Auteur inconnu' }}</p>
@@ -134,7 +134,7 @@
             
             <!-- Recommendations -->
             <section>
-                <h2 class="font-serif text-2xl font-semibold text-slate-900 mb-4">Recommandés pour vous</h2>
+                <h2 class="font-poppins text-2xl font-semibold text-slate-900 mb-4">Recommandés pour vous</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     @foreach($recommandations as $livre)
                         <div class="group cursor-pointer">
@@ -147,11 +147,11 @@
                                     </div>
                                 @endif
                                 <!-- Overlay de hover -->
-                                <div class="absolute inset-0 bg-editorial/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                                    <span class="px-4 py-2 bg-white text-editorial text-xs font-bold uppercase tracking-wider rounded-full shadow-lg">Voir le livre</span>
+                                <div class="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                                    <span class="px-4 py-2 bg-white text-primary text-xs font-bold uppercase tracking-wider rounded-xl shadow-lg">Voir le livre</span>
                                 </div>
                             </div>
-                            <h3 class="font-bold text-sm text-slate-900 leading-tight line-clamp-2 group-hover:text-editorial transition-colors">{{ $livre->titre }}</h3>
+                            <h3 class="font-bold text-sm text-slate-900 leading-tight line-clamp-2 group-hover:text-primary transition-colors">{{ $livre->titre }}</h3>
                             <p class="text-xs text-slate-500 mt-1 line-clamp-1">{{ $livre->auteurs ?: 'Inconnu' }}</p>
                         </div>
                     @endforeach
@@ -163,18 +163,18 @@
         <!-- Sidebar Activity -->
         <div class="space-y-8">
             <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/60 sticky top-28">
-                <h3 class="font-serif text-xl font-semibold text-slate-900 mb-6">Activité récente</h3>
+                <h3 class="font-poppins text-xl font-semibold text-slate-900 mb-6">Activité récente</h3>
                 <div class="relative border-l-2 border-slate-100 ml-3 space-y-6">
                     <!-- Fake timeline for visual purpose, actual notifications will replace this -->
                     <div class="relative pl-6">
-                        <span class="absolute -left-[9px] top-1 h-4 w-4 rounded-full bg-editorial ring-4 ring-white"></span>
+                        <span class="absolute -left-[9px] top-1 h-4 w-4 rounded-xl bg-secondary ring-4 ring-white"></span>
                         <p class="text-sm font-semibold text-slate-900">Bienvenue sur votre espace</p>
                         <p class="text-xs text-slate-500 mt-1">Vous venez de vous connecter à la nouvelle version de la bibliothèque numérique.</p>
                         <p class="text-[10px] text-slate-400 font-medium uppercase mt-2">Aujourd'hui</p>
                     </div>
                     @foreach($pretsEnCours->take(2) as $pret)
                         <div class="relative pl-6">
-                            <span class="absolute -left-[9px] top-1 h-4 w-4 rounded-full bg-slate-200 ring-4 ring-white"></span>
+                            <span class="absolute -left-[9px] top-1 h-4 w-4 rounded-xl bg-slate-200 ring-4 ring-white"></span>
                             <p class="text-sm font-semibold text-slate-900">Emprunt enregistré</p>
                             <p class="text-xs text-slate-500 mt-1">Vous avez emprunté <span class="font-medium">"{{ $pret->exemplaire->ouvrage->titre }}"</span>.</p>
                             <p class="text-[10px] text-slate-400 font-medium uppercase mt-2">{{ $pret->date_emprunt->diffForHumans() }}</p>

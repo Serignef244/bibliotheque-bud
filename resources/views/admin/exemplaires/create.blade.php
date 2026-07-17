@@ -30,7 +30,7 @@
                     <span class="text-xs text-slate-400 ml-1">(généré automatiquement si vide)</span>
                 </label>
                 <input type="text" id="code_barre" name="code_barre" value="{{ old('code_barre') }}"
-                       placeholder="BUD-000001-0001"
+                       placeholder="BS-000001-0001"
                        class="w-full px-4 py-2.5 rounded-xl border @error('code_barre') border-red-400 bg-red-50 @else border-slate-200 @enderror text-sm font-mono focus:ring-2 focus:ring-indigo-500 outline-none transition">
                 @error('code_barre')<p class="mt-1 text-xs text-red-500">{{ $message }}</p>@enderror
             </div>

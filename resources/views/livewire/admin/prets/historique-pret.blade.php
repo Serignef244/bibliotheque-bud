@@ -27,15 +27,15 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900">{{ $entry->created_at->format('d/m/Y H:i') }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         @if($entry->action === 'creation')
-                            <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Création</span>
+                            <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-xl">Création</span>
                         @elseif($entry->action === 'retour')
-                            <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">Retour</span>
+                            <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-xl">Retour</span>
                         @elseif($entry->action === 'prolongation')
-                            <span class="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded-full">Prolongation</span>
+                            <span class="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded-xl">Prolongation</span>
                         @elseif($entry->action === 'penalite')
-                            <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">Pénalité</span>
+                            <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-xl">Pénalité</span>
                         @else
-                            <span class="px-2 py-1 text-xs font-medium bg-slate-100 text-slate-800 rounded-full">{{ $entry->action }}</span>
+                            <span class="px-2 py-1 text-xs font-medium bg-slate-100 text-slate-800 rounded-xl">{{ $entry->action }}</span>
                         @endif
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900">#{{ $entry->pret_id }}</td>

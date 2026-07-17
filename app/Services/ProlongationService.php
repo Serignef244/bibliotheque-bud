@@ -26,7 +26,8 @@ class ProlongationService
 
     public function getNouvelleDate(Pret $pret): Carbon
     {
-        return $pret->date_retour_prevue->addDays(7);
+        $duree = \App\Models\Setting::get('pret_duree_prolongation', 7);
+        return $pret->date_retour_prevue->copy()->addDays($duree);
     }
 
     public function getRaisonsRefus(Pret $pret): array

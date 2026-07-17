@@ -57,6 +57,7 @@ class PretRepository implements PretRepositoryInterface
     {
         return Pret::with(['exemplaire.ouvrage'])
             ->where('adherent_id', $adherentId)
+            ->whereIn('statut', ['en_cours', 'retard'])
             ->orderBy('date_emprunt', 'desc')
             ->get();
     }

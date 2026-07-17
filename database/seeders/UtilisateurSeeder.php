@@ -13,7 +13,7 @@ class UtilisateurSeeder extends Seeder
         $admin = User::updateOrCreate(
             ['email' => 'admin@bibliotheque.local'],
             [
-                'name' => 'Administrateur BUD',
+                'name' => 'Administrateur BiblioSmart',
                 'password' => Hash::make('Admin12345!'),
                 'email_verified_at' => now(),
             ]
@@ -23,7 +23,7 @@ class UtilisateurSeeder extends Seeder
         $bibliothecaire = User::updateOrCreate(
             ['email' => 'bibliothecaire@bibliotheque.local'],
             [
-                'name' => 'Bibliothécaire BUD',
+                'name' => 'Bibliothécaire BiblioSmart',
                 'password' => Hash::make('Biblio12345!'),
                 'email_verified_at' => now(),
             ]

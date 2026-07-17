@@ -20,7 +20,7 @@
         <div class="container" style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
             <h1>Bienvenue, {{ $adherent->prenom }} !</h1>
             
-            <p>Votre compte sur la Bibliothèque Numérique BUD a été créé avec succès.</p>
+            <p>Votre compte sur la BiblioSmart a été créé avec succès.</p>
             <p>Voici vos identifiants temporaires pour accéder à votre espace adhérent :</p>
             
             <div class="credentials" style="background: #f8fafc; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0;">
@@ -40,7 +40,7 @@
 
             <div class="footer" style="margin-top: 40px; text-align: center; font-size: 14px; color: #64748b;">
                 <p>Si vous n'avez pas demandé la création de ce compte, veuillez ignorer cet email.</p>
-                <p>&copy; {{ date('Y') }} Bibliothèque Universitaire de Dakar.</p>
+                <p>&copy; {{ date('Y') }} BiblioSmart.</p>
             </div>
         </div>
     </div>

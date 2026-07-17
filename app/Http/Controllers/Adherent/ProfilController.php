@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Adherent;
 
 use App\Http\Controllers\Controller;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\CarteAdherentService;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilController extends Controller
 {
@@ -13,11 +14,11 @@ class ProfilController extends Controller
         return view('adherent.profil.index', compact('adherent'));
     }
 
-    public function downloadCard()
+    public function downloadCard(CarteAdherentService $carteAdherentService)
     {
         $adherent = auth()->user()->adherent;
-        $pdf = Pdf::loadView('adherent.profil.carte_pdf', compact('adherent'))->setPaper('A4', 'landscape');
+        $path = $carteAdherentService->generatePDF($adherent);
         
-        return $pdf->download('carte_adherent_' . $adherent->num_carte . '.pdf');
+        return Storage::disk('public')->download($path, 'carte_adherent_' . $adherent->num_carte . '.pdf');
     }
 }

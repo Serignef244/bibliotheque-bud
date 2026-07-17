@@ -8,11 +8,11 @@
     <!-- Header -->
     <div class="flex items-center justify-between mb-8">
         <div class="flex items-center gap-4">
-            <a href="{{ route('adherent.prets.index') }}" class="p-2 text-slate-400 hover:text-editorial bg-white hover:bg-slate-50 rounded-full transition-colors border border-slate-200">
+            <a href="{{ route('adherent.prets.index') }}" class="p-2 text-slate-400 hover:text-primary bg-white hover:bg-slate-50 rounded-xl transition-colors border border-slate-200">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             </a>
             <div>
-                <h1 class="font-serif text-3xl font-semibold text-slate-900 tracking-tight">Historique de lecture</h1>
+                <h1 class="font-poppins text-3xl font-semibold text-slate-900 tracking-tight">Historique de lecture</h1>
                 <p class="text-slate-500 mt-1">Tous les livres que vous avez empruntés.</p>
             </div>
         </div>
@@ -22,7 +22,7 @@
     <div class="bg-white rounded-[2rem] p-6 sm:p-10 shadow-sm border border-slate-200/60">
         @if($history->isEmpty())
             <div class="py-12 text-center">
-                <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="w-16 h-16 bg-slate-50 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <svg class="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
                 <h3 class="text-lg font-medium text-slate-900 mb-1">Aucun historique</h3>
@@ -33,7 +33,7 @@
                 @foreach($history as $pret)
                     <div class="relative pl-8 sm:pl-12 group">
                         <!-- Point -->
-                        <span class="absolute -left-[11px] top-2 h-5 w-5 rounded-full {{ $pret->date_retour_reelle > $pret->date_retour_prevue ? 'bg-amber-500 ring-amber-100' : 'bg-editorial ring-editorial-50' }} ring-8"></span>
+                        <span class="absolute -left-[11px] top-2 h-5 w-5 rounded-xl {{ $pret->date_retour_reelle > $pret->date_retour_prevue ? 'bg-amber-500 ring-amber-100' : 'bg-secondary ring-secondary-50' }} ring-8"></span>
                         
                         <div class="flex flex-col sm:flex-row gap-6">
                             <!-- Couverture (petit) -->
@@ -49,8 +49,8 @@
 
                             <!-- Infos -->
                             <div class="flex-1">
-                                <h3 class="font-serif font-bold text-lg text-slate-900 leading-tight mb-1">
-                                    <a href="{{ route('adherent.catalogue.show', $pret->exemplaire->ouvrage->id) }}" class="hover:text-editorial transition-colors">{{ $pret->exemplaire->ouvrage->titre }}</a>
+                                <h3 class="font-poppins font-bold text-lg text-slate-900 leading-tight mb-1">
+                                    <a href="{{ route('adherent.catalogue.show', $pret->exemplaire->ouvrage->id) }}" class="hover:text-primary transition-colors">{{ $pret->exemplaire->ouvrage->titre }}</a>
                                 </h3>
                                 <p class="text-sm text-slate-500 mb-3">{{ $pret->exemplaire->ouvrage->auteurs ?: 'Auteur inconnu' }}</p>
                                 

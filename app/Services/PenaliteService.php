@@ -20,7 +20,9 @@ class PenaliteService
 
         $joursRetard = now()->diffInDays($pret->date_retour_prevue);
         
-        $tarif = $pret->adherent->typeAdherent->tarif_penalite ?? 100;
+        $typeNom = strtolower($pret->adherent->typeAdherent->nom ?? 'externe');
+        $tarifKey = 'penalite_' . $typeNom;
+        $tarif = \App\Models\Setting::get($tarifKey, 100);
         
         return $joursRetard * $tarif;
     }
@@ -81,7 +83,7 @@ class PenaliteService
             ->where('statut', StatutPenalite::IMPAYE->value)
             ->sum('montant_restant');
         
-        $seuil = config('bibliotheque.seuil_blocage', 1000);
+        $seuil = \App\Models\Setting::get('penalite_seuil_blocage', 1000);
         
         return $totalImpaye >= $seuil;
     }

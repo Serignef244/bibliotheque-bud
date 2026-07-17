@@ -10,6 +10,7 @@ class CarteAdherentService
 {
     public function __construct(
         private readonly QRCodeService $qrCodeService,
+        private readonly CodeBarreService $codeBarreService,
     ) {}
 
     /**
@@ -21,9 +22,15 @@ class CarteAdherentService
     {
         $adherent->load('typeAdherent');
 
-        // Générer le QR Code (contenu SVG brut pour l'intégrer dans le PDF)
-        $qrCodeSvg = $this->qrCodeService->generateSvgRaw($adherent->num_carte, 120);
+        // Générer le QR Code
+        $qrCodeSvg = $this->qrCodeService->generateSvgRaw($adherent->num_carte, 80);
         $qrCodeBase64 = base64_encode($qrCodeSvg);
+
+        // Générer le Code-barres
+        $barcodeSvg = $this->codeBarreService->genererSvg($adherent->num_carte, 40, 2);
+        // Supprimer le texte car nous allons l'afficher proprement en HTML
+        $barcodeSvg = preg_replace('/<text.*?<\/text>/', '', $barcodeSvg);
+        $barcodeBase64 = base64_encode($barcodeSvg);
 
         // Photo de l'adhérent en base64 si elle existe
         $photoBase64 = null;
@@ -36,11 +43,12 @@ class CarteAdherentService
         $pdf = Pdf::loadView('pdf.carte_adherent', [
             'adherent' => $adherent,
             'qrCodeBase64' => $qrCodeBase64,
+            'barcodeBase64' => $barcodeBase64,
             'photoBase64' => $photoBase64,
         ]);
 
-        // Format carte de crédit : 85.6mm x 53.98mm
-        $pdf->setPaper([0, 0, 242.65, 153.07], 'landscape');
+        // Format A4 pour imprimer le recto et le verso sur la même page
+        $pdf->setPaper('A4', 'portrait');
 
         $filename = 'cartes/carte_' . $adherent->num_carte . '.pdf';
         Storage::disk('public')->put($filename, $pdf->output());

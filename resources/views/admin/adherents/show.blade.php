@@ -29,7 +29,7 @@
         {{-- Photo et infos principales --}}
         <div class="lg:col-span-1">
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 text-center">
-                <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-slate-100 ring-4 ring-slate-50">
+                <div class="w-32 h-32 mx-auto mb-4 rounded-xl overflow-hidden bg-slate-100 ring-4 ring-slate-50">
                     @if($adherent->photo)
                         <img src="{{ asset('storage/' . $adherent->photo) }}" class="w-full h-full object-cover">
                     @else
@@ -44,7 +44,7 @@
                 <p class="text-slate-500 mt-1 font-mono text-sm">{{ $adherent->num_carte }}</p>
                 
                 <div class="mt-4 pt-4 border-t border-slate-100">
-                    <span class="inline-flex px-3 py-1 rounded-full text-xs font-semibold
+                    <span class="inline-flex px-3 py-1 rounded-xl text-xs font-semibold
                         {{ $adherent->statut === \App\Enums\StatutAdherent::ACTIF ? 'bg-emerald-100 text-emerald-800' : 
                            ($adherent->statut === \App\Enums\StatutAdherent::SUSPENDU ? 'bg-amber-100 text-amber-800' : 
                            ($adherent->statut === \App\Enums\StatutAdherent::EXPIRE ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-800')) }}">

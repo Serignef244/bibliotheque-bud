@@ -10,7 +10,7 @@
                 </svg>
             </span>
         @else
-            <span class="w-2 h-2 rounded-full bg-indigo-400 flex-shrink-0"></span>
+            <span class="w-2 h-2 rounded-xl bg-indigo-400 flex-shrink-0"></span>
         @endif
 
         {{-- Nom + badge --}}

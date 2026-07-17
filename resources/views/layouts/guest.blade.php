@@ -4,39 +4,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', config('app.name', 'Bibliothèque BUD'))</title>
+    <title>@yield('title', config('app.name', 'BiblioSmart'))</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased bg-slate-50 text-slate-600 min-h-screen relative selection:bg-editorial selection:text-white flex flex-col">
+<body class="font-sans antialiased bg-slate-50 text-slate-600 min-h-screen relative selection:bg-secondary selection:text-white flex flex-col">
     <!-- Header Minimaliste -->
     <header class="bg-white/80 backdrop-blur-md border-b border-slate-200/60 sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 h-20 flex items-center justify-between">
             <!-- Logo -->
-            <a href="{{ route('home') }}" class="flex items-center gap-4 group">
-                <div class="h-10 w-10 bg-editorial text-white flex items-center justify-center font-serif text-xl font-bold rounded-lg shadow-sm group-hover:scale-105 transition-transform duration-300">
-                    B
-                </div>
-                <div class="flex flex-col">
-                    <span class="font-serif font-bold text-slate-900 tracking-tight text-xl leading-none group-hover:text-editorial transition-colors">
-                        BiblioNum
-                    </span>
-                    <span class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-1">
-                        Universitaire de Dakar
-                    </span>
-                </div>
+            <a href="{{ route('home') }}" class="flex items-center">
+                <img src="{{ asset('images/logo.jpeg') }}" alt="BiblioSmart" class="h-12 object-contain">
             </a>
             
             <!-- Navigation -->
             <div class="flex items-center gap-6">
                 @auth
-                    <a href="{{ redirectByRole(auth()->user()) }}" class="text-sm font-semibold text-slate-700 hover:text-editorial transition-colors">
+                    <a href="{{ redirectByRole(auth()->user()) }}" class="text-sm font-semibold text-slate-700 hover:text-primary transition-colors">
                         Mon Espace
                     </a>
                 @else
-                    <a href="{{ route('login') }}" class="inline-flex items-center rounded-full bg-editorial hover:bg-editorial-light text-white px-6 py-2.5 text-sm font-medium shadow-sm transition-all duration-300 hover:shadow-md transform hover:-translate-y-0.5">
+                    <a href="{{ route('login') }}" class="inline-flex items-center rounded-xl bg-secondary hover:bg-blue-500 text-white px-6 py-2.5 text-sm font-medium shadow-sm transition-all duration-300 hover:shadow-md transform hover:-translate-y-0.5">
                         Me connecter
                     </a>
                 @endauth
@@ -72,7 +62,7 @@
                 <div class="w-full @yield('container_width', 'max-w-md') transition-all duration-500">
                     <div class="bg-white border border-slate-200/60 shadow-sm rounded-3xl p-8 sm:p-10 relative overflow-hidden">
                         <!-- Ligne décorative haute -->
-                        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-editorial to-editorial-light"></div>
+                        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-secondary"></div>
                         {{ $slot }}
                     </div>
                 </div>
@@ -84,7 +74,7 @@
     @if(!View::hasSection('hide_footer'))
         <footer class="bg-white border-t border-slate-200/60 py-8 text-center text-sm text-slate-500 mt-auto">
             <div class="max-w-7xl mx-auto px-6">
-                <p>&copy; {{ date('Y') }} Bibliothèque Numérique BUD. Tous droits réservés.</p>
+                <p>&copy; {{ date('Y') }} BiblioSmart. Tous droits réservés.</p>
             </div>
         </footer>
     @endif

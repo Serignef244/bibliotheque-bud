@@ -29,7 +29,7 @@
                         'reparation'  => 'bg-blue-100 text-blue-700',
                     ];
                 @endphp
-                <span class="px-3 py-1.5 rounded-full text-sm font-semibold {{ $couleurs[$exemplaire->statut->value] ?? 'bg-slate-100 text-slate-600' }}">
+                <span class="px-3 py-1.5 rounded-xl text-sm font-semibold {{ $couleurs[$exemplaire->statut->value] ?? 'bg-slate-100 text-slate-600' }}">
                     {{ $exemplaire->statut->label() }}
                 </span>
                 @can('update', $exemplaire)
@@ -49,7 +49,7 @@
             <div>
                 <dt class="text-xs text-slate-400 uppercase tracking-wide font-semibold">État</dt>
                 <dd class="mt-0.5">
-                    <span class="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-{{ $exemplaire->etat_couleur }}-100 text-{{ $exemplaire->etat_couleur }}-700">
+                    <span class="inline-flex px-2.5 py-1 rounded-xl text-xs font-medium bg-{{ $exemplaire->etat_couleur }}-100 text-{{ $exemplaire->etat_couleur }}-700">
                         {{ $exemplaire->etat_label }} ({{ $exemplaire->etat }}/5)
                     </span>
                 </dd>

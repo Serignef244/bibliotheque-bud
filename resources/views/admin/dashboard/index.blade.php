@@ -1,29 +1,76 @@
 @extends('layouts.admin')
 
-@section('header', 'Tableau de bord')
-
-@section('content')
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-    @foreach ([
-        ['label' => 'Ouvrages', 'value' => $stats['ouvrages'], 'color' => 'bg-blue-500'],
-        ['label' => 'Adhérents actifs', 'value' => $stats['adherents_actifs'], 'color' => 'bg-green-500'],
-        ['label' => 'Prêts en cours', 'value' => $stats['prets_en_cours'], 'color' => 'bg-amber-500'],
-        ['label' => 'Pénalités impayées', 'value' => $stats['penalites_impayees'], 'color' => 'bg-red-500'],
-    ] as $stat)
-        <div class="rounded-xl bg-white p-6 shadow-sm border border-slate-200">
-            <div class="flex items-center gap-4">
-                <div class="h-12 w-12 rounded-lg {{ $stat['color'] }} opacity-90"></div>
-                <div>
-                    <p class="text-sm text-slate-500">{{ $stat['label'] }}</p>
-                    <p class="text-2xl font-bold text-slate-900">{{ $stat['value'] }}</p>
-                </div>
-            </div>
-        </div>
-    @endforeach
-</div>
-
-<div class="mt-8 rounded-xl bg-white p-6 shadow-sm border border-slate-200">
-    <h2 class="text-lg font-semibold text-slate-900">Bienvenue sur l'espace d'administration de la Bibliothèque BUD</h2>
-    <p class="mt-2 text-slate-600">Vous pouvez désormais naviguer à travers les différents modules à l'aide de la barre latérale pour gérer votre bibliothèque.</p>
+@section('header')
+<div class="flex justify-between items-center w-full">
+    <span>Tableau de bord - Bibliothèque</span>
+    <form action="{{ route('admin.statistiques.export') }}" method="POST" class="inline">
+        @csrf
+        <input type="hidden" name="type" value="statistiques">
+        <input type="hidden" name="format" value="pdf">
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            Générer le rapport PDF
+        </button>
+    </form>
 </div>
 @endsection
+
+@section('content')
+<div class="space-y-8">
+    @include('admin.dashboard.widgets')
+    @include('admin.dashboard.charts')
+    @include('admin.dashboard.tables')
+</div>
+@endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fetchChartData = async (type) => {
+            const response = await fetch(`/admin/dashboard/chart-data?type=${type}`);
+            return await response.json();
+        };
+
+        const initCharts = async () => {
+            // Chart 1: Évolution des prêts
+            const loansData = await fetchChartData('loans_evolution');
+            new Chart(document.getElementById('loansChart'), {
+                type: 'bar',
+                data: loansData,
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Chart 2: Top 5 ouvrages
+            const topBooksData = await fetchChartData('top_books');
+            new Chart(document.getElementById('topBooksChart'), {
+                type: 'bar',
+                data: topBooksData,
+                options: { 
+                    indexAxis: 'y',
+                    responsive: true, 
+                    maintainAspectRatio: false 
+                }
+            });
+
+            // Chart 3: Répartition adhérents
+            const membersData = await fetchChartData('members_type');
+            new Chart(document.getElementById('membersChart'), {
+                type: 'doughnut',
+                data: membersData,
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Chart 4: Pénalités par mois
+            const finesData = await fetchChartData('fines_evolution');
+            new Chart(document.getElementById('finesChart'), {
+                type: 'line',
+                data: finesData,
+                options: { responsive: true, maintainAspectRatio: false, fill: true }
+            });
+        };
+
+        initCharts();
+    });
+</script>
+@endpush

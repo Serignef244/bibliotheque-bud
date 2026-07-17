@@ -3,7 +3,13 @@
     <nav class="flex items-center gap-2 text-sm text-slate-500 mb-6">
         <a href="{{ route('admin.ouvrages.index') }}" class="hover:text-indigo-600 transition-colors">Ouvrages</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-        <span class="text-slate-800 font-medium">Nouvel ouvrage</span>
+        @if($ouvrage)
+            <a href="{{ route('admin.ouvrages.show', $ouvrage) }}" class="hover:text-indigo-600 transition-colors truncate max-w-xs">{{ $ouvrage->titre }}</a>
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <span class="text-slate-800 font-medium">Modifier</span>
+        @else
+            <span class="text-slate-800 font-medium">Nouvel ouvrage</span>
+        @endif
     </nav>
 
     {{-- SECTION: RECHERCHE ISBN AUTOMATIQUE --}}
@@ -98,8 +104,11 @@
     </div>
 
     {{-- FORMULAIRE CLASSIQUE WRAPPÉ --}}
-    <form method="POST" action="{{ route('admin.ouvrages.store') }}" enctype="multipart/form-data" class="space-y-6">
+    <form method="POST" action="{{ $ouvrage ? route('admin.ouvrages.update', $ouvrage) : route('admin.ouvrages.store') }}" enctype="multipart/form-data" class="space-y-6">
         @csrf
+        @if($ouvrage)
+            @method('PUT')
+        @endif
         
         {{-- Champ caché pour la couverture récupérée de l'API --}}
         <input type="hidden" name="image_couverture_url" wire:model="image_couverture_url">
@@ -168,7 +177,7 @@
                     <select id="langue" name="langue"
                             class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition">
                         @foreach(['Français', 'Anglais', 'Arabe', 'Wolof', 'Espagnol', 'Portugais', 'Autre'] as $lang)
-                            <option value="{{ $lang }}" {{ old('langue', 'Français') === $lang ? 'selected' : '' }}>{{ $lang }}</option>
+                            <option value="{{ $lang }}" {{ old('langue', $ouvrage ? $ouvrage->langue : 'Français') === $lang ? 'selected' : '' }}>{{ $lang }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -196,7 +205,7 @@
                             class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition">
                         <option value="">— Sélectionner —</option>
                         @foreach(['Broché', 'Relié', 'Poche', 'Grand format', 'PDF', 'Numérique'] as $fmt)
-                            <option value="{{ $fmt }}" {{ old('format') === $fmt ? 'selected' : '' }}>{{ $fmt }}</option>
+                            <option value="{{ $fmt }}" {{ old('format', $ouvrage ? $ouvrage->format : '') === $fmt ? 'selected' : '' }}>{{ $fmt }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -207,6 +216,15 @@
                     <textarea id="description" name="description" wire:model="description" rows="4"
                               placeholder="Résumé de l'ouvrage…"
                               class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition resize-none"></textarea>
+                </div>
+                <div class="flex items-center gap-3 sm:col-span-2">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="hidden" name="actif" value="0">
+                        <input type="checkbox" name="actif" value="1" id="actif"
+                               {{ old('actif', $ouvrage ? $ouvrage->actif : true) ? 'checked' : '' }}
+                               class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm font-medium text-slate-700">Ouvrage actif</span>
+                    </label>
                 </div>
             </div>
         </div>
@@ -251,6 +269,8 @@
                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                             <span class="text-white text-xs font-semibold px-2 text-center">Image importée</span>
                         </div>
+                    @elseif($ouvrage && $ouvrage->image_couverture)
+                        <img src="{{ $ouvrage->image_url }}" class="w-full h-full object-cover" alt="Couverture actuelle">
                     @else
                         <svg class="h-8 w-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -276,7 +296,7 @@
 
         {{-- Actions --}}
         <div class="flex items-center justify-end gap-3">
-            <a href="{{ route('admin.ouvrages.index') }}"
+            <a href="{{ $ouvrage ? route('admin.ouvrages.show', $ouvrage) : route('admin.ouvrages.index') }}"
                class="px-5 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">
                 Annuler
             </a>
@@ -285,7 +305,7 @@
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
-                Créer l'ouvrage
+                {{ $ouvrage ? 'Enregistrer les modifications' : 'Créer l\'ouvrage' }}
             </button>
         </div>
     </form>

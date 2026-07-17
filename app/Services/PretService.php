@@ -73,7 +73,7 @@ class PretService
         }
 
         $adherent = Adherent::with('typeAdherent')->find($dto->adherent_id);
-        $dureePret = config('bibliotheque.duree_pret_defaut', 14);
+        $dureePret = \App\Models\Setting::get('pret_duree', 14);
         $dateRetourPrevue = now()->addDays($dureePret);
 
         $pret = $this->pretRepository->create([

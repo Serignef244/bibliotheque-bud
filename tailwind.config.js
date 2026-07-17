@@ -15,13 +15,15 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
-                serif: ['"Playfair Display"', ...defaultTheme.fontFamily.serif],
+                serif: ['Poppins', ...defaultTheme.fontFamily.serif],
+                poppins: ['Poppins', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                editorial: {
-                    DEFAULT: '#1E3A8A', // Bleu principal
-                    light: '#3B82F6', // Bleu secondaire
-                    50: '#FAFAF8', // Fond principal
+                primary: {
+                    DEFAULT: '#1E3A8A', // Bleu primaire (blue-900)
+                },
+                secondary: {
+                    DEFAULT: '#2563EB', // Bleu secondaire (blue-600)
                 }
             }
         },

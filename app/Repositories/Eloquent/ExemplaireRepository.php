@@ -52,12 +52,12 @@ class ExemplaireRepository implements ExemplaireRepositoryInterface
 
     public function genererCodeBarre(int $ouvrageId): string
     {
-        // Format : BUD-<ouvrageId padded 6>-<séquence padded 4>
+        // Format : BS-<ouvrageId padded 6>-<séquence padded 4>
         $dernier = Exemplaire::where('ouvrage_id', $ouvrageId)
             ->withTrashed()
             ->count();
 
-        return sprintf('BUD-%06d-%04d', $ouvrageId, $dernier + 1);
+        return sprintf('BS-%06d-%04d', $ouvrageId, $dernier + 1);
     }
 
     public function nombreDisponiblesParOuvrage(int $ouvrageId): int

@@ -53,7 +53,7 @@
                 {{-- Badges catégories --}}
                 <div class="flex flex-wrap gap-2 mt-3">
                     @foreach($ouvrage->categories as $cat)
-                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-xl text-xs font-medium
                             {{ $cat->pivot->principale ? 'bg-indigo-100 text-indigo-700 ring-1 ring-indigo-300' : 'bg-slate-100 text-slate-600' }}">
                             @if($cat->pivot->principale)
                                 <svg class="h-3 w-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -172,12 +172,12 @@
                                 ];
                                 $classe = $couleurs[$ex->statut->value] ?? 'bg-slate-100 text-slate-600';
                             @endphp
-                            <span class="inline-flex px-2.5 py-1 rounded-full text-xs font-medium {{ $classe }}">
+                            <span class="inline-flex px-2.5 py-1 rounded-xl text-xs font-medium {{ $classe }}">
                                 {{ $ex->statut->label() }}
                             </span>
                         </td>
                         <td class="px-4 py-3">
-                            <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium bg-{{ $ex->etat_couleur }}-100 text-{{ $ex->etat_couleur }}-700">
+                            <span class="inline-flex px-2 py-0.5 rounded-xl text-xs font-medium bg-{{ $ex->etat_couleur }}-100 text-{{ $ex->etat_couleur }}-700">
                                 {{ $ex->etat_label }}
                             </span>
                         </td>
@@ -201,6 +201,14 @@
                                     </svg>
                                 </a>
                                 @endcan
+                                
+                                <a href="{{ route('admin.exemplaires.etiquette', $ex) }}" target="_blank"
+                                   class="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                                   title="Imprimer l'étiquette">
+                                    <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                                    </svg>
+                                </a>
                             </div>
                         </td>
                     </tr>

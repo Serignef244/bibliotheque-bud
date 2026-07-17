@@ -12,7 +12,7 @@ class JournalActivite
     /**
      * @var array<int, string>
      */
-    protected array $methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
+    protected array $methods = ['POST', 'PUT', 'PATCH', 'DELETE'];
 
     public function handle(Request $request, Closure $next): Response
     {

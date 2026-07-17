@@ -40,9 +40,10 @@ if (! function_exists('statutBadge')) {
 if (! function_exists('genererCodeBarre')) {
     function genererCodeBarre(int|string $id): string
     {
-        return 'BUD-'.str_pad((string) $id, 8, '0', STR_PAD_LEFT);
+        return 'BS-'.str_pad((string) $id, 8, '0', STR_PAD_LEFT);
     }
 }
+
 
 if (! function_exists('estAdherentActif')) {
     function estAdherentActif(?object $adherent): bool

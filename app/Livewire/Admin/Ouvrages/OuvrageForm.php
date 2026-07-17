@@ -3,11 +3,13 @@
 namespace App\Livewire\Admin\Ouvrages;
 
 use App\Models\Categorie;
+use App\Models\Ouvrage;
 use App\Services\ISBNService;
 use Livewire\Component;
 
 class OuvrageForm extends Component
 {
+    public ?Ouvrage $ouvrage = null;
     public string $searchIsbn = '';
     public ?array $resultat = null;
     public string $erreur = '';
@@ -27,18 +29,32 @@ class OuvrageForm extends Component
     public array $categoriesDisponibles = [];
     public array $categoriesSelectionnees = [];
 
-    public function mount(array $categories = [])
+    public function mount(array $categories = [], ?Ouvrage $ouvrage = null)
     {
         $this->categoriesDisponibles = $categories;
-        $this->isbn = old('isbn', '');
-        $this->titre = old('titre', '');
-        $this->auteurs = old('auteurs', '');
-        $this->editeur = old('editeur', '');
-        $this->annee_publication = old('annee_publication', '');
-        $this->nombre_pages = old('nombre_pages', '');
-        $this->description = old('description', '');
-        $this->categoriesSelectionnees = old('categories', []);
-        $this->image_couverture_url = old('image_couverture_url', '');
+        $this->ouvrage = $ouvrage;
+
+        if ($ouvrage) {
+            $this->isbn = old('isbn', $ouvrage->isbn ?? '');
+            $this->titre = old('titre', $ouvrage->titre ?? '');
+            $this->auteurs = old('auteurs', $ouvrage->auteurs ?? '');
+            $this->editeur = old('editeur', $ouvrage->editeur ?? '');
+            $this->annee_publication = old('annee_publication', (string) ($ouvrage->annee_publication ?? ''));
+            $this->nombre_pages = old('nombre_pages', (string) ($ouvrage->nombre_pages ?? ''));
+            $this->description = old('description', $ouvrage->description ?? '');
+            $this->categoriesSelectionnees = old('categories', $ouvrage->categories->pluck('id')->toArray());
+            // image_couverture is handled via file upload, but we keep the URL if any
+        } else {
+            $this->isbn = old('isbn', '');
+            $this->titre = old('titre', '');
+            $this->auteurs = old('auteurs', '');
+            $this->editeur = old('editeur', '');
+            $this->annee_publication = old('annee_publication', '');
+            $this->nombre_pages = old('nombre_pages', '');
+            $this->description = old('description', '');
+            $this->categoriesSelectionnees = old('categories', []);
+            $this->image_couverture_url = old('image_couverture_url', '');
+        }
     }
 
     public function search()

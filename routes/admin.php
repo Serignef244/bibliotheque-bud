@@ -10,11 +10,16 @@ use App\Http\Controllers\Admin\PretController;
 use App\Http\Controllers\Admin\TypeAdherentController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'role:admin,bibliothecaire', 'journal'])
+Route::middleware(['auth', 'role:admin,bibliothecaire', 'force_password_change', 'journal'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/chart-data', [DashboardController::class, 'chartData'])->name('dashboard.chart-data');
+
+        // Statistiques & Exports
+        Route::get('/statistiques', [\App\Http\Controllers\Admin\ExportController::class, 'index'])->name('statistiques.index');
+        Route::post('/statistiques/export', [\App\Http\Controllers\Admin\ExportController::class, 'export'])->name('statistiques.export');
 
         // ── Module 1 : Gestion des ouvrages ────────────────────────────────
         Route::resource('ouvrages', OuvrageController::class);
@@ -22,6 +27,8 @@ Route::middleware(['auth', 'role:admin,bibliothecaire', 'journal'])
         // Exemplaires imbriqués sous un ouvrage
         Route::resource('ouvrages.exemplaires', ExemplaireController::class)
              ->shallow();
+        
+        Route::get('exemplaires/{exemplaire}/etiquette', [ExemplaireController::class, 'etiquette'])->name('exemplaires.etiquette');
 
         // Catégories
         Route::resource('categories', CategorieController::class);
@@ -59,9 +66,15 @@ Route::middleware(['auth', 'role:admin,bibliothecaire', 'journal'])
         Route::get('/penalites/{penalite}', [\App\Http\Controllers\Admin\PenaliteController::class, 'show'])->name('penalites.show');
         Route::post('/penalites/{penalite}/payer', [\App\Http\Controllers\Admin\PenaliteController::class, 'payer'])->name('penalites.payer');
         Route::get('/penalites/{penalite}/recu', [\App\Http\Controllers\Admin\PenaliteController::class, 'recu'])->name('penalites.recu');
-        Route::view('/statistiques', 'admin.placeholder', ['title' => 'Statistiques'])->name('statistiques.index');
-        Route::view('/utilisateurs', 'admin.placeholder', ['title' => 'Administration'])->name('utilisateurs.index');
-        Route::view('/parametres', 'admin.placeholder', ['title' => 'Paramètres'])->name('parametres.index');
 
-        Route::get('/logs', [JournalController::class, 'index'])->name('logs.index');
+        Route::resource('utilisateurs', \App\Http\Controllers\Admin\UserController::class)->except(['show']);
+        Route::get('/parametres', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('parametres.index');
+        Route::post('/parametres', [\App\Http\Controllers\Admin\SettingController::class, 'store'])->name('parametres.store');
+        
+        Route::get('/logs', [\App\Http\Controllers\Admin\JournalController::class, 'index'])->name('logs.index');
+        
+        Route::get('/backups', [\App\Http\Controllers\Admin\BackupController::class, 'index'])->name('backups.index');
+        Route::post('/backups', [\App\Http\Controllers\Admin\BackupController::class, 'create'])->name('backups.create');
+        Route::get('/backups/download', [\App\Http\Controllers\Admin\BackupController::class, 'download'])->name('backups.download');
+        Route::delete('/backups', [\App\Http\Controllers\Admin\BackupController::class, 'destroy'])->name('backups.destroy');
     });

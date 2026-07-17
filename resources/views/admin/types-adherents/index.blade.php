@@ -47,7 +47,7 @@
                         {{ number_format($type->tarif_penalite, 0, ',', ' ') }} FCFA/jour
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-indigo-100 text-indigo-800">
+                        <span class="px-2 py-1 text-xs font-semibold rounded-xl bg-indigo-100 text-indigo-800">
                             {{ $type->adherents_count ?? $type->adherents()->count() }}
                         </span>
                     </td>

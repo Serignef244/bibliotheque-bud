@@ -26,4 +26,9 @@ Route::post('logout', function (Logout $logout) {
     return redirect()->route('home');
 })->middleware('auth')->name('logout');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/forcer-mot-de-passe', [\App\Http\Controllers\Auth\ForcePasswordController::class, 'create'])->name('password.force-change');
+    Route::post('/forcer-mot-de-passe', [\App\Http\Controllers\Auth\ForcePasswordController::class, 'store'])->name('password.force-change.store');
+});
+
 require __DIR__.'/auth.php';

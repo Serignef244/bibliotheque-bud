@@ -8,14 +8,14 @@
     <!-- Header -->
     <div class="flex items-center justify-between">
         <div>
-            <h1 class="font-serif text-3xl font-semibold text-slate-900 tracking-tight">Notifications</h1>
+            <h1 class="font-poppins text-3xl font-semibold text-slate-900 tracking-tight">Notifications</h1>
             <p class="text-slate-500 mt-1">Restez informé de l'activité de votre compte.</p>
         </div>
         
         @if($notifications->count() > 0 && auth()->user()->unreadNotifications->count() > 0)
             <form action="{{ route('adherent.notifications.readAll') }}" method="POST">
                 @csrf
-                <button type="submit" class="px-4 py-2 bg-white border border-slate-200 hover:border-editorial text-slate-700 hover:text-editorial text-sm font-medium rounded-full shadow-sm transition-all">
+                <button type="submit" class="px-4 py-2 bg-white border border-slate-200 hover:border-primary text-slate-700 hover:text-primary text-sm font-medium rounded-xl shadow-sm transition-all">
                     Tout marquer comme lu
                 </button>
             </form>
@@ -26,7 +26,7 @@
     <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/60">
         @if($notifications->isEmpty())
             <div class="py-12 text-center">
-                <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="w-16 h-16 bg-slate-50 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <svg class="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                 </div>
                 <h3 class="text-lg font-medium text-slate-900 mb-1">Aucune notification</h3>
@@ -41,7 +41,7 @@
                             'success' => 'bg-emerald-100 text-emerald-600',
                             'warning' => 'bg-amber-100 text-amber-600',
                             'error' => 'bg-red-100 text-red-600',
-                            default => 'bg-editorial-light/20 text-editorial',
+                            default => 'bg-blue-500/20 text-primary',
                         };
                         $icon = match($type) {
                             'success' => '<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />',
@@ -53,7 +53,7 @@
                     
                     <div class="relative pl-8 group">
                         <!-- Ligne / Point -->
-                        <span class="absolute -left-[17px] top-1 flex h-8 w-8 items-center justify-center rounded-full {{ $colors }} ring-8 ring-white">
+                        <span class="absolute -left-[17px] top-1 flex h-8 w-8 items-center justify-center rounded-xl {{ $colors }} ring-8 ring-white">
                             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">{!! $icon !!}</svg>
                         </span>
                         
@@ -64,7 +64,7 @@
                                         {{ $notification->data['title'] ?? 'Notification' }}
                                     </h4>
                                     @if(!$notification->read_at)
-                                        <span class="px-2 py-0.5 rounded-full bg-editorial text-white text-[10px] font-bold uppercase tracking-wider">Nouveau</span>
+                                        <span class="px-2 py-0.5 rounded-xl bg-secondary text-white text-[10px] font-bold uppercase tracking-wider">Nouveau</span>
                                     @endif
                                 </div>
                                 <p class="{{ $notification->read_at ? 'text-slate-500' : 'text-slate-700 font-medium' }}">
@@ -76,7 +76,7 @@
                             @if(!$notification->read_at)
                                 <form action="{{ route('adherent.notifications.read', $notification->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="p-2 text-slate-400 hover:text-editorial rounded-full hover:bg-slate-50 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100" title="Marquer comme lu">
+                                    <button type="submit" class="p-2 text-slate-400 hover:text-primary rounded-xl hover:bg-slate-50 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100" title="Marquer comme lu">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                     </button>
                                 </form>

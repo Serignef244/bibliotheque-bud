@@ -70,7 +70,7 @@
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden relative">
         
         <div wire:loading.delay.longer class="absolute inset-0 bg-white/50 backdrop-blur-sm z-10 flex items-center justify-center">
-            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+            <div class="animate-spin rounded-xl h-8 w-8 border-b-2 border-indigo-600"></div>
         </div>
 
         <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
@@ -81,7 +81,7 @@
 
         @if($ouvrages->isEmpty())
             <div class="flex flex-col items-center justify-center py-16 text-center">
-                <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                <div class="w-16 h-16 bg-slate-100 rounded-xl flex items-center justify-center mb-4">
                     <svg class="h-8 w-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                     </svg>
@@ -111,7 +111,7 @@
                         <div class="flex items-start gap-2">
                             <h3 class="font-semibold text-slate-800 truncate">{{ $ouvrage->titre }}</h3>
                             @if(! $ouvrage->actif)
-                                <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-500">
+                                <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-500">
                                     Inactif
                                 </span>
                             @endif
@@ -119,7 +119,7 @@
                         <p class="text-sm text-slate-500 mt-0.5">{{ $ouvrage->auteurs_principal }}</p>
                         <div class="flex items-center flex-wrap gap-2 mt-1.5">
                             @foreach($ouvrage->categories->take(3) as $cat)
-                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-xl text-xs font-medium bg-indigo-50 text-indigo-700">
                                     {{ $cat->nom }}
                                 </span>
                             @endforeach

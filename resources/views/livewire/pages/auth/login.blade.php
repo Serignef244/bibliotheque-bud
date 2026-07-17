@@ -26,7 +26,7 @@ new #[Layout('layouts.guest')] class extends Component
 
 <div class="w-full">
     <div class="text-center mb-8">
-        <h1 class="font-serif text-3xl font-bold text-slate-900 mb-2">Bon retour</h1>
+        <h1 class="font-poppins text-3xl font-bold text-slate-900 mb-2">Bon retour</h1>
         <p class="text-sm text-slate-500">Connectez-vous pour accéder à votre espace.</p>
     </div>
 
@@ -38,7 +38,7 @@ new #[Layout('layouts.guest')] class extends Component
         <div>
             <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">Adresse email</label>
             <input wire:model="form.email" id="email" type="email" name="email" required autofocus autocomplete="username"
-                class="w-full rounded-xl border-slate-200 focus:border-editorial focus:ring focus:ring-editorial/20 transition-colors bg-slate-50 focus:bg-white px-4 py-3"
+                class="w-full rounded-xl border-slate-200 focus:border-primary focus:ring focus:ring-secondary/20 transition-colors bg-slate-50 focus:bg-white px-4 py-3"
                 placeholder="votre@email.com">
             <x-input-error :messages="$errors->get('form.email')" class="mt-2 text-sm text-red-600" />
         </div>
@@ -48,14 +48,14 @@ new #[Layout('layouts.guest')] class extends Component
             <div class="flex items-center justify-between mb-2">
                 <label for="password" class="block text-sm font-semibold text-slate-700">Mot de passe</label>
                 @if (Route::has('password.request'))
-                    <a class="text-xs font-medium text-editorial hover:text-editorial-light transition-colors" href="{{ route('password.request') }}" wire:navigate>
+                    <a class="text-xs font-medium text-primary hover:text-primary-light transition-colors" href="{{ route('password.request') }}" wire:navigate>
                         Oublié ?
                     </a>
                 @endif
             </div>
             
             <input wire:model="form.password" id="password" type="password" name="password" required autocomplete="current-password"
-                class="w-full rounded-xl border-slate-200 focus:border-editorial focus:ring focus:ring-editorial/20 transition-colors bg-slate-50 focus:bg-white px-4 py-3"
+                class="w-full rounded-xl border-slate-200 focus:border-primary focus:ring focus:ring-secondary/20 transition-colors bg-slate-50 focus:bg-white px-4 py-3"
                 placeholder="••••••••">
             <x-input-error :messages="$errors->get('form.password')" class="mt-2 text-sm text-red-600" />
         </div>
@@ -63,15 +63,24 @@ new #[Layout('layouts.guest')] class extends Component
         <!-- Remember Me -->
         <div class="flex items-center">
             <input wire:model="form.remember" id="remember" type="checkbox" name="remember"
-                class="rounded border-slate-300 text-editorial focus:ring-editorial/20 w-4 h-4 bg-slate-50">
+                class="rounded border-slate-300 text-primary focus:ring-secondary/20 w-4 h-4 bg-slate-50">
             <label for="remember" class="ms-2 text-sm font-medium text-slate-600 cursor-pointer">
                 Se souvenir de moi
             </label>
         </div>
 
-        <button type="submit" class="w-full px-8 py-3.5 bg-editorial hover:bg-editorial-light text-white font-medium rounded-xl transition-all shadow-sm shadow-editorial/20 flex items-center justify-center gap-2 group">
+        <button type="submit" class="w-full px-8 py-3.5 bg-secondary hover:bg-blue-500 text-white font-medium rounded-xl transition-all shadow-sm shadow-secondary/20 flex items-center justify-center gap-2 group">
             Me connecter
             <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
         </button>
     </form>
+
+    <div class="mt-8 pt-6 border-t border-slate-200 text-center">
+        <p class="text-sm text-slate-600">
+            ℹ️ Pas encore inscrit ? 
+            <a href="{{ route('register') }}" class="font-semibold text-secondary hover:text-blue-500 transition-colors" wire:navigate>
+                👉 Créer un compte
+            </a>
+        </p>
+    </div>
 </div>

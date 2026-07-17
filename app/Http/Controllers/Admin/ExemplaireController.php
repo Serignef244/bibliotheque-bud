@@ -82,4 +82,21 @@ class ExemplaireController extends Controller
             return back()->withErrors(['general' => $e->getMessage()]);
         }
     }
+
+    public function etiquette(Exemplaire $exemplaire)
+    {
+        Gate::authorize('view', $exemplaire);
+        
+        $ouvrage = $exemplaire->ouvrage;
+        // The service already generates SVG barcode. If we just want a print view:
+        $svgCodeBarre = $this->exemplaireService->genererImageCodeBarre($exemplaire->code_barre);
+        
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.etiquette_exemplaire', compact('exemplaire', 'ouvrage', 'svgCodeBarre'));
+        
+        // Etiquette size could be customized. For a small barcode label, maybe 60x40mm. 
+        // 1 mm = 2.83465 pt. 60mm = 170pt, 40mm = 113pt.
+        $pdf->setPaper([0, 0, 170, 113], 'landscape');
+        
+        return $pdf->stream("etiquette_{$exemplaire->code_barre}.pdf");
+    }
 }

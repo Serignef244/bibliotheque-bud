@@ -30,9 +30,9 @@
     <div class="watermark">PAYÉ</div>
 
     <div class="header">
-        <div class="logo">Médiathèque Bud</div>
+        <div class="logo">BiblioSmart</div>
         <p style="margin: 0; color: #64748b;">123 Rue de la Lecture, 75000 Paris</p>
-        <p style="margin: 0; color: #64748b;">Tél: 01 23 45 67 89 • Email: contact@mediatheque-bud.fr</p>
+        <p style="margin: 0; color: #64748b;">Tél: 01 23 45 67 89 • Email: contact@bibliosmart.fr</p>
         <div style="margin-top: 20px;">
             <div class="title">Reçu de paiement</div>
             <div style="color: #64748b; margin-top: 5px;">N° {{ str_pad($paiement->id, 6, '0', STR_PAD_LEFT) }}</div>
