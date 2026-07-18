@@ -42,8 +42,11 @@ Route::get('/dev/clear-adherents', function () {
     // Supprimer les adhérents
     \App\Models\Adherent::withTrashed()->forceDelete();
     
-    // Supprimer les comptes utilisateurs associés
-    \App\Models\User::whereIn('id', $userIds)->forceDelete();
+    // Supprimer les comptes utilisateurs associés (y compris orphelins)
+    $adherentRoleUsers = \App\Models\User::role('adherent')->get();
+    foreach($adherentRoleUsers as $u) {
+        $u->forceDelete();
+    }
     
     return 'Tous les adhérents de test (et leurs comptes) ont été supprimés définitivement !';
 });
