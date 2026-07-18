@@ -10,6 +10,9 @@ php artisan view:cache
 php artisan config:cache
 php artisan route:cache
 
+echo "Correction des permissions..."
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
 echo "Démarrage du serveur Apache..."
 # Passe la main à la commande spécifiée dans le CMD du Dockerfile (apache2-foreground)
 exec "$@"
