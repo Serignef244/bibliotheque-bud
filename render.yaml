@@ -24,3 +24,19 @@ services:
         fromDatabase:
           name: bibliosmart-db
           property: connectionString
+      - key: MAIL_MAILER
+        value: smtp
+      - key: MAIL_HOST
+        value: smtp.gmail.com
+      - key: MAIL_PORT
+        value: 587
+      - key: MAIL_USERNAME
+        value: serignef244@gmail.com
+      - key: MAIL_PASSWORD
+        value: imkhfhqakmtswcdo
+      - key: MAIL_ENCRYPTION
+        value: tls
+      - key: MAIL_FROM_ADDRESS
+        value: serignef244@gmail.com
+      - key: MAIL_FROM_NAME
+        value: BiblioSmart
