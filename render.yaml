@@ -25,10 +25,18 @@ services:
           name: bibliosmart-db
           property: connectionString
       - key: MAIL_MAILER
-        value: brevo
-      - key: BREVO_API_KEY
+        value: smtp
+      - key: MAIL_HOST
+        value: sandbox.smtp.mailtrap.io
+      - key: MAIL_PORT
+        value: 2525
+      - key: MAIL_USERNAME
         sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: MAIL_ENCRYPTION
+        value: tls
       - key: MAIL_FROM_ADDRESS
-        value: serignef244@gmail.com
+        value: bibliosmart@example.com
       - key: MAIL_FROM_NAME
         value: BiblioSmart
