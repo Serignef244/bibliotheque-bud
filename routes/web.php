@@ -8,40 +8,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home')->name('home');
 
-// ROUTE TEMPORAIRE POUR SUPPRIMER LES ADHERENTS
-Route::get('/dev/clear-adherents', function () {
-    \App\Models\HistoriquePret::query()->delete();
-    \App\Models\Pret::query()->delete();
-    \App\Models\Adherent::withTrashed()->forceDelete();
-    
-    $adherentRole = \Spatie\Permission\Models\Role::where('name', 'adherent')->first();
-    if ($adherentRole) {
-        $users = \App\Models\User::role('adherent')->get();
-        foreach($users as $user) {
-            $user->delete();
-        }
-    }
-    
-    return 'Tous les adhérents, prêts et utilisateurs associés ont été supprimés avec succès !';
-});
-
-Route::get('/dev/logs', function () {
-    $path = storage_path('logs/laravel.log');
-    if (!file_exists($path)) return 'No logs found.';
-    return response()->file($path, ['Content-Type' => 'text/plain']);
-});
-
-Route::get('/dev/test-mail', function () {
-    try {
-        \Illuminate\Support\Facades\Mail::raw('Test direct depuis Render', function($msg) {
-            $msg->to('serignef244@gmail.com')->subject('Test de diagnostic Render');
-        });
-        return 'Email envoyé avec succès ! Le mailer configuré est : ' . config('mail.default');
-    } catch (\Exception $e) {
-        return 'Erreur lors de l\'envoi : ' . $e->getMessage() . '<br>Trace : <pre>' . $e->getTraceAsString() . '</pre>';
-    }
-});
-
 Route::get('/dashboard', function () {
     $redirect = redirectByRole(auth()->user());
     if ($redirect !== route('home')) {
