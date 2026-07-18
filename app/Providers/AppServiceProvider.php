@@ -15,6 +15,9 @@ use App\Repositories\Eloquent\TypeAdherentRepository;
 use App\Models\Adherent;
 use App\Observers\AdherentObserver;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Mail;
+use Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoTransportFactory;
+use Symfony\Component\Mailer\Transport\Dsn;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,6 +40,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Mail::extend('brevo', function (array $config = []) {
+            return (new BrevoTransportFactory())->create(
+                new Dsn('brevo+api', 'default', $config['key'] ?? env('BREVO_API_KEY'))
+            );
+        });
         Adherent::observe(AdherentObserver::class);
     }
 }

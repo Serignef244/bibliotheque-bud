@@ -25,10 +25,10 @@ services:
           name: bibliosmart-db
           property: connectionString
       - key: MAIL_MAILER
-        value: resend
-      - key: RESEND_API_KEY
-        value: re_iUQvMEE6_5Qfhkwf3jwnYAevvNYMP6ucN
+        value: brevo
+      - key: BREVO_API_KEY
+        sync: false
       - key: MAIL_FROM_ADDRESS
-        value: onboarding@resend.dev
+        value: serignef244@gmail.com
       - key: MAIL_FROM_NAME
         value: BiblioSmart

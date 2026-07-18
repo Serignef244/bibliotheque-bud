@@ -19,7 +19,9 @@
         "resend/resend-php": "*",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-backup": "^10.3",
-        "spatie/laravel-permission": "^8.3"
+        "spatie/laravel-permission": "^8.3",
+        "symfony/brevo-mailer": "*",
+        "symfony/http-client": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
