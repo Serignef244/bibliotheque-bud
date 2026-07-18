@@ -3,6 +3,7 @@ set -e
 
 echo "Exécution des migrations de la base de données..."
 php artisan migrate --force
+php artisan db:seed --force
 
 echo "Optimisation de l'application..."
 php artisan optimize:clear
