@@ -31,6 +31,17 @@ Route::get('/dev/logs', function () {
     return response()->file($path, ['Content-Type' => 'text/plain']);
 });
 
+Route::get('/dev/test-mail', function () {
+    try {
+        \Illuminate\Support\Facades\Mail::raw('Test direct depuis Render', function($msg) {
+            $msg->to('serignef244@gmail.com')->subject('Test de diagnostic Render');
+        });
+        return 'Email envoyé avec succès ! Le mailer configuré est : ' . config('mail.default');
+    } catch (\Exception $e) {
+        return 'Erreur lors de l\'envoi : ' . $e->getMessage() . '<br>Trace : <pre>' . $e->getTraceAsString() . '</pre>';
+    }
+});
+
 Route::get('/dashboard', function () {
     $redirect = redirectByRole(auth()->user());
     if ($redirect !== route('home')) {
