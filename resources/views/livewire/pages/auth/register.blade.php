@@ -64,7 +64,11 @@ new #[Layout('layouts.guest')] class extends Component
         ]);
 
         // 5. Envoi de l'email de bienvenue
-        Mail::to($adherent->email)->send(new WelcomeAdherentMail($adherent));
+        try {
+            Mail::to($adherent->email)->send(new WelcomeAdherentMail($adherent));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Erreur envoi email: " . $e->getMessage());
+        }
 
         // 6. Redirection avec message de succès
         session()->flash('status', 'Compte créé avec succès ! Un email de bienvenue vous a été envoyé à l\'adresse que vous avez fournie.');
