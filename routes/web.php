@@ -31,4 +31,21 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/forcer-mot-de-passe', [\App\Http\Controllers\Auth\ForcePasswordController::class, 'store'])->name('password.force-change.store');
 });
 
+Route::get('/dev/clear-adherents', function () {
+    if (request('key') !== 'super-secret-123') {
+        abort(403);
+    }
+    
+    // Récupérer les IDs utilisateurs associés aux adhérents
+    $userIds = \App\Models\Adherent::whereNotNull('user_id')->pluck('user_id');
+    
+    // Supprimer les adhérents
+    \App\Models\Adherent::query()->delete();
+    
+    // Supprimer les comptes utilisateurs associés
+    \App\Models\User::whereIn('id', $userIds)->delete();
+    
+    return 'Tous les adhérents de test (et leurs comptes) ont été supprimés définitivement !';
+});
+
 require __DIR__.'/auth.php';
