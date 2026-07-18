@@ -37,13 +37,13 @@ Route::get('/dev/clear-adherents', function () {
     }
     
     // Récupérer les IDs utilisateurs associés aux adhérents
-    $userIds = \App\Models\Adherent::whereNotNull('user_id')->pluck('user_id');
+    $userIds = \App\Models\Adherent::withTrashed()->whereNotNull('user_id')->pluck('user_id');
     
     // Supprimer les adhérents
-    \App\Models\Adherent::query()->delete();
+    \App\Models\Adherent::withTrashed()->forceDelete();
     
     // Supprimer les comptes utilisateurs associés
-    \App\Models\User::whereIn('id', $userIds)->delete();
+    \App\Models\User::whereIn('id', $userIds)->forceDelete();
     
     return 'Tous les adhérents de test (et leurs comptes) ont été supprimés définitivement !';
 });
