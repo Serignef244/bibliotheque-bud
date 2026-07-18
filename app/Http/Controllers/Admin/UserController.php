@@ -66,7 +66,11 @@ class UserController extends Controller
         $user->assignRole($validated['roles']);
 
         $biblioNom = Setting::get('biblio_nom', 'BiblioSmart');
-        Mail::to($user->email)->send(new CompteUtilisateurCree($user, $password, $biblioNom));
+        try {
+            Mail::to($user->email)->send(new CompteUtilisateurCree($user, $password, $biblioNom));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Impossible d'envoyer l'email : " . $e->getMessage());
+        }
 
         return redirect()->route('admin.utilisateurs.index')
             ->with('success', 'Utilisateur créé avec succès. Un email contenant ses identifiants lui a été envoyé.');

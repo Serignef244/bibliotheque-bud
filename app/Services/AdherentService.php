@@ -69,7 +69,11 @@ class AdherentService
             $adherent = $this->repository->create($data);
 
             if (!empty($data['email']) && $password) {
-                Mail::to($data['email'])->send(new CompteAdherentCree($adherent, $password));
+                try {
+                    Mail::to($data['email'])->send(new CompteAdherentCree($adherent, $password));
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::error("Impossible d'envoyer l'email : " . $e->getMessage());
+                }
             }
 
             // Déclencher l'événement d'inscription
