@@ -21,7 +21,8 @@ class AdherentRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                'unique:adherents,email,' . $adherentId,
+                'max:255',
+                $adherentId ? 'unique:adherents,email,' . $adherentId : 'unique:adherents,email',
             ],
             'telephone' => ['nullable', 'string', 'max:20'],
             'adresse' => ['nullable', 'string'],

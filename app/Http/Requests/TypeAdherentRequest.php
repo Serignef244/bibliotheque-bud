@@ -20,7 +20,7 @@ class TypeAdherentRequest extends FormRequest
                 'required',
                 'string',
                 'max:100',
-                'unique:type_adherents,nom,' . $typeAdherentId,
+                $typeAdherentId ? 'unique:type_adherents,nom,' . $typeAdherentId : 'unique:type_adherents,nom',
             ],
             'duree_jours' => ['required', 'integer', 'min:1'],
             'max_books' => ['required', 'integer', 'min:1'],
