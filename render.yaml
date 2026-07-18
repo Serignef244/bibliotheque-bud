@@ -11,7 +11,7 @@ services:
     plan: free
     envVars:
       - key: APP_KEY
-        generateValue: true
+        value: "base64:tSNczExZGU++h+UYtpyF0GyxCshQMrf5NydW7czl63Q="
       - key: APP_NAME
         value: BiblioSmart
       - key: APP_ENV
