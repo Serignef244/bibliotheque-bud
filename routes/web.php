@@ -25,6 +25,12 @@ Route::get('/dev/clear-adherents', function () {
     return 'Tous les adhérents, prêts et utilisateurs associés ont été supprimés avec succès !';
 });
 
+Route::get('/dev/logs', function () {
+    $path = storage_path('logs/laravel.log');
+    if (!file_exists($path)) return 'No logs found.';
+    return response()->file($path, ['Content-Type' => 'text/plain']);
+});
+
 Route::get('/dashboard', function () {
     $redirect = redirectByRole(auth()->user());
     if ($redirect !== route('home')) {
