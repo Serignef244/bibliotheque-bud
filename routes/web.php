@@ -8,6 +8,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home')->name('home');
 
+// ROUTE TEMPORAIRE POUR SUPPRIMER LES ADHERENTS
+Route::get('/dev/clear-adherents', function () {
+    \App\Models\HistoriquePret::query()->delete();
+    \App\Models\Pret::query()->delete();
+    \App\Models\Adherent::withTrashed()->forceDelete();
+    
+    $adherentRole = \Spatie\Permission\Models\Role::where('name', 'adherent')->first();
+    if ($adherentRole) {
+        $users = \App\Models\User::role('adherent')->get();
+        foreach($users as $user) {
+            $user->delete();
+        }
+    }
+    
+    return 'Tous les adhérents, prêts et utilisateurs associés ont été supprimés avec succès !';
+});
+
 Route::get('/dashboard', function () {
     $redirect = redirectByRole(auth()->user());
     if ($redirect !== route('home')) {
