@@ -34,10 +34,25 @@ class CarteAdherentService
 
         // Photo de l'adhérent en base64 si elle existe
         $photoBase64 = null;
-        if ($adherent->photo && Storage::disk('public')->exists($adherent->photo)) {
-            $photoContent = Storage::disk('public')->get($adherent->photo);
-            $photoMime = Storage::disk('public')->mimeType($adherent->photo);
-            $photoBase64 = 'data:' . $photoMime . ';base64,' . base64_encode($photoContent);
+        if ($adherent->photo) {
+            if (str_starts_with($adherent->photo, 'http')) {
+                // Image hébergée sur Cloudinary ou ailleurs
+                try {
+                    $photoContent = file_get_contents($adherent->photo);
+                    if ($photoContent) {
+                        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+                        $photoMime = $finfo->buffer($photoContent);
+                        $photoBase64 = 'data:' . $photoMime . ';base64,' . base64_encode($photoContent);
+                    }
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::warning("Impossible de charger la photo Cloudinary de l'adhérent: " . $e->getMessage());
+                }
+            } elseif (Storage::disk('public')->exists($adherent->photo)) {
+                // Fichier local
+                $photoContent = Storage::disk('public')->get($adherent->photo);
+                $photoMime = Storage::disk('public')->mimeType($adherent->photo);
+                $photoBase64 = 'data:' . $photoMime . ';base64,' . base64_encode($photoContent);
+            }
         }
 
         $pdf = Pdf::loadView('pdf.carte_adherent', [

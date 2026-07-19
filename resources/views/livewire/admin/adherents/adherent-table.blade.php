@@ -108,7 +108,7 @@
                     {{-- Photo --}}
                     <div class="flex-shrink-0">
                         @if($adherent->photo)
-                            <img src="{{ asset('storage/' . $adherent->photo) }}" alt="{{ $adherent->prenom }}"
+                            <img src="{{ $adherent->photo_url }}" alt="{{ $adherent->prenom }}"
                                  class="w-10 h-10 rounded-xl object-cover ring-2 ring-white">
                         @else
                             <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 font-bold text-sm">

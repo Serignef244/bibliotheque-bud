@@ -31,7 +31,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 text-center">
                 <div class="w-32 h-32 mx-auto mb-4 rounded-xl overflow-hidden bg-slate-100 ring-4 ring-slate-50">
                     @if($adherent->photo)
-                        <img src="{{ asset('storage/' . $adherent->photo) }}" class="w-full h-full object-cover">
+                        <img src="{{ $adherent->photo_url }}" class="w-full h-full object-cover">
                     @else
                         <div class="w-full h-full flex items-center justify-center">
                             <svg class="w-16 h-16 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

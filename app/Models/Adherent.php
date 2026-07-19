@@ -59,4 +59,15 @@ class Adherent extends Model
     {
         return $this->hasMany(Penalite::class);
     }
+
+    public function getPhotoUrlAttribute(): ?string
+    {
+        if (! $this->photo) {
+            return null;
+        }
+        if (str_starts_with($this->photo, 'http')) {
+            return $this->photo;
+        }
+        return asset('storage/' . $this->photo);
+    }
 }

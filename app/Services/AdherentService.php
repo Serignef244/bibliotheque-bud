@@ -22,6 +22,7 @@ class AdherentService
 {
     public function __construct(
         private readonly AdherentRepositoryInterface $repository,
+        private readonly UploadService $uploadService,
     ) {}
 
     public function paginer(int $perPage = 15, array $filtres = []): LengthAwarePaginator
@@ -49,7 +50,7 @@ class AdherentService
             }
 
             if ($photo) {
-                $data['photo'] = $photo->store('adherents/photos', 'public');
+                $data['photo'] = $this->uploadService->uploadCouverture($photo);
             }
 
             $password = null;
@@ -91,9 +92,9 @@ class AdherentService
             if ($photo) {
                 // Supprimer l'ancienne photo si elle existe
                 if ($adherent->photo) {
-                    Storage::disk('public')->delete($adherent->photo);
+                    $this->uploadService->supprimer($adherent->photo);
                 }
-                $data['photo'] = $photo->store('adherents/photos', 'public');
+                $data['photo'] = $this->uploadService->uploadCouverture($photo);
             }
 
             $this->repository->update($adherent, $data);
