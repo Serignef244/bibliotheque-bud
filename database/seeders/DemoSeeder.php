@@ -19,6 +19,11 @@ class DemoSeeder extends Seeder
 {
     public function run(): void
     {
+        if (Ouvrage::where('titre', 'Livre Démo 1')->exists()) {
+            $this->command->info('Données de démonstration déjà présentes.');
+            return;
+        }
+
         // 1. Catégories
         $categories = [
             'Informatique',
