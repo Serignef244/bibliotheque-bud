@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home')->name('home');
 
+// Route temporaire pour nettoyer la base de données sur Render
+Route::get('/dev/wipe-db', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--seed' => true, '--force' => true]);
+    return 'Base de données réinitialisée avec succès ! Les données de démo ont été supprimées. Seul le compte Admin existe. Vous pouvez retourner à l\'accueil.';
+});
+
 Route::get('/dashboard', function () {
     $redirect = redirectByRole(auth()->user());
     if ($redirect !== route('home')) {
