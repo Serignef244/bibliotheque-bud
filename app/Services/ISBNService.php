@@ -43,7 +43,7 @@ class ISBNService
             }
 
             if ($data && !empty($data['couverture_url'])) {
-                $data['couverture'] = $this->downloadCover($data['couverture_url'], $cleanIsbn);
+                $data['couverture'] = str_replace('http://', 'https://', $data['couverture_url']);
                 unset($data['couverture_url']);
             }
 
