@@ -144,6 +144,9 @@ class Ouvrage extends Model
         if (! $this->image_couverture) {
             return null;
         }
+        if (str_starts_with($this->image_couverture, 'http')) {
+            return $this->image_couverture;
+        }
         return asset('storage/' . $this->image_couverture);
     }
 

@@ -40,3 +40,9 @@ services:
         value: bibliosmart@example.com
       - key: MAIL_FROM_NAME
         value: BiblioSmart
+      - key: CLOUDINARY_CLOUD_NAME
+        value: "dmdtrqkdv"
+      - key: CLOUDINARY_API_KEY
+        value: "523957753761896"
+      - key: CLOUDINARY_API_SECRET
+        value: "AmmT4oCVMpOm6-vY3S4Z-Ph5DKM"
