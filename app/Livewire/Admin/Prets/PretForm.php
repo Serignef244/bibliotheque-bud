@@ -62,6 +62,19 @@ class PretForm extends Component
             ->get();
     }
 
+    public function scannerCarte($numCarte)
+    {
+        $adherent = Adherent::where('num_carte', $numCarte)->first();
+        if ($adherent) {
+            $this->adherent_id = $adherent->id;
+            $this->updatedAdherentId();
+            $this->dispatch('carte-scanned', ['success' => true]);
+        } else {
+            $this->addError('general', "Aucun adhérent trouvé pour le numéro de carte: $numCarte");
+            $this->dispatch('carte-scanned', ['success' => false]);
+        }
+    }
+
     public function submit(): mixed
     {
         $this->validate([

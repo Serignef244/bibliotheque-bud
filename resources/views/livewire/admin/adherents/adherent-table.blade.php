@@ -159,7 +159,7 @@
                     </div>
 
                     {{-- Actions --}}
-                    <div class="flex-shrink-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div class="flex-shrink-0 flex items-center gap-1 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
                         <a href="{{ route('admin.adherents.show', $adherent) }}"
                            class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors" title="Voir">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
