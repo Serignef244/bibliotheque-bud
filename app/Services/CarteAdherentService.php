@@ -22,9 +22,14 @@ class CarteAdherentService
     {
         $adherent->load('typeAdherent');
 
-        // Générer le QR Code en PNG pour éviter les problèmes de redimensionnement de dompdf avec les SVG
-        $qrCodePng = \SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->size(150)->margin(1)->generate($adherent->num_carte);
-        $qrCodeBase64 = base64_encode($qrCodePng);
+        // Générer le QR Code en SVG (PNG requiert Imagick qui n'est pas sur le serveur)
+        $qrCodeSvg = $this->qrCodeService->generateSvgRaw($adherent->num_carte, 100);
+        
+        // Remplacer width et height absolus par 100% pour que dompdf puisse le redimensionner sans le couper
+        $qrCodeSvg = preg_replace('/width="[^"]+"/', 'width="100%"', $qrCodeSvg, 1);
+        $qrCodeSvg = preg_replace('/height="[^"]+"/', 'height="100%"', $qrCodeSvg, 1);
+        
+        $qrCodeBase64 = base64_encode($qrCodeSvg);
 
         // Générer le Code-barres
         $barcodeSvg = $this->codeBarreService->genererSvg($adherent->num_carte, 40, 2);
