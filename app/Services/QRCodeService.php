@@ -47,6 +47,7 @@ class QRCodeService
     {
         return QrCode::format('svg')
             ->size($size)
+            ->margin(0)
             ->errorCorrection('H')
             ->generate($data);
     }

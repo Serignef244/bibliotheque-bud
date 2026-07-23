@@ -115,17 +115,19 @@
         }
 
         .user-name {
-            font-size: 10pt;
+            font-size: 9pt;
             font-weight: bold;
             color: #0B2E59;
             margin-bottom: 0.5mm;
+            line-height: 1.2;
         }
         .user-type {
-            font-size: 7pt;
+            font-size: 6pt;
             color: #1E88E5;
             font-weight: bold;
             text-transform: uppercase;
             margin-bottom: 2mm;
+            line-height: 1;
         }
 
         .info-grid {
@@ -137,17 +139,19 @@
         }
 
         .info-row {
-            margin-bottom: 1.5mm;
+            margin-bottom: 2mm;
         }
         .info-label {
             font-size: 4.5pt;
             color: #4A5568;
-            margin-bottom: 0;
+            margin-bottom: 0.2mm;
+            line-height: 1.1;
         }
         .info-value {
             font-size: 6pt;
             color: #0B2E59;
             font-weight: bold;
+            line-height: 1.2;
         }
 
         .front-footer {
@@ -184,12 +188,13 @@
         }
         .qr-center-box {
             display: inline-block;
-            width: 26mm;
-            height: 26mm;
+            width: 28mm;
+            height: 28mm;
             background: white;
-            padding: 1mm;
+            padding: 0;
             border: 1px solid #e2e8f0;
             border-radius: 1mm;
+            overflow: hidden;
         }
         .qr-center-box img {
             width: 100%;
