@@ -166,84 +166,41 @@
         /* --- BACK --- */
         .back-top {
             background-color: #0B2E59;
-            height: 14mm;
+            height: 12mm;
             width: 100%;
-            padding: 2mm 3mm;
+            text-align: center;
+            padding-top: 3mm;
         }
-
-        .back-top-left {
-            float: left;
-            width: 50mm;
-        }
-        .back-top-left img {
+        .back-top img {
             height: 6mm;
             filter: brightness(0) invert(1);
         }
 
-        .back-top-right {
-            float: right;
-            width: 20mm;
-            text-align: right;
+        .back-middle {
+            height: 34mm;
+            width: 100%;
+            text-align: center;
+            padding-top: 2mm;
         }
-        .qr-box {
+        .qr-center-box {
+            display: inline-block;
+            width: 26mm;
+            height: 26mm;
             background: white;
             padding: 1mm;
+            border: 1px solid #e2e8f0;
             border-radius: 1mm;
-            width: 18mm;
-            height: 18mm;
         }
-        .qr-box img {
-            width: 16mm;
-            height: 16mm;
-            object-fit: contain;
-        }
-
-        .back-middle {
-            height: 30mm;
-            padding: 2mm 3mm;
+        .qr-center-box img {
             width: 100%;
+            height: 100%;
         }
-
-        .conditions {
-            float: left;
-            width: 42mm;
-            padding-right: 2mm;
-        }
-        .section-title {
-            color: #1E88E5;
-            font-size: 5.5pt;
-            font-weight: bold;
-            margin-bottom: 1.5mm;
-        }
-        .conditions ul {
-            padding-left: 3mm;
-            margin: 0;
-            font-size: 4.5pt;
-            color: #4A5568;
-            line-height: 1.3;
-        }
-        .conditions li {
-            margin-bottom: 1px;
-        }
-
-        .barcode-section {
-            float: left;
-            width: 37mm;
-            padding-left: 2mm;
-            border-left: 1px solid #e2e8f0;
-            text-align: center;
-        }
-        .barcode-img {
-            margin-top: 2mm;
-            width: 32mm;
-            height: 8mm;
-        }
-        .barcode-text {
+        .qr-text {
             font-family: monospace;
-            font-size: 7pt;
+            font-size: 8pt;
             font-weight: bold;
             color: #0B2E59;
-            margin-top: 1mm;
+            margin-top: 1.5mm;
             letter-spacing: 0.5px;
         }
 
@@ -263,7 +220,6 @@
             width: 33.33%;
             line-height: 8mm;
         }
-
     </style>
 </head>
 <body>
@@ -327,31 +283,16 @@
         <!-- PAGE 2: VERSO -->
         <div class="page">
             <div class="back-top">
-                <div class="back-top-left">
-                    <img src="{{ public_path('images/logo.jpeg') }}" alt="BiblioSmart">
-                </div>
-                <div class="back-top-right">
-                    <div class="qr-box">
-                        <img src="data:image/svg+xml;base64,{!! $qrCodeBase64 !!}" alt="QR">
-                    </div>
-                </div>
+                <img src="{{ public_path('images/logo.jpeg') }}" alt="BiblioSmart">
             </div>
 
             <div class="back-middle">
-                <div class="conditions">
-                    <div class="section-title">CONDITIONS D'UTILISATION</div>
-                    <ul>
-                        <li>Carte strictement personnelle</li>
-                        <li>Présentation obligatoire lors des emprunts</li>
-                        <li>Remplacement payant en cas de perte</li>
-                        <li>Respect du règlement de la bibliothèque</li>
-                    </ul>
+                <div class="qr-center-box">
+                    <img src="data:image/svg+xml;base64,{!! $qrCodeBase64 !!}" alt="QR">
                 </div>
-                <div class="barcode-section">
-                    @if(isset($barcodeBase64))
-                        <img src="data:image/svg+xml;base64,{!! $barcodeBase64 !!}" class="barcode-img" alt="Code Barre">
-                    @endif
-                    <div class="barcode-text">{{ $adherent->num_carte }}</div>
+                <div class="qr-text">{{ $adherent->num_carte }}</div>
+                <div style="font-size: 5pt; color: #718096; margin-top: 2mm;">
+                    Carte strictement personnelle. Présentation obligatoire lors des emprunts.
                 </div>
             </div>
 
