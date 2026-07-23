@@ -10,7 +10,7 @@
     <!-- PWA -->
     <link rel="manifest" href="{{ asset('manifest.json') }}">
     <meta name="theme-color" content="#1E3A8A">
-    <link rel="apple-touch-icon" href="{{ asset('icons/icon-192x192.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('icons/icon-192x192.jpg') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
