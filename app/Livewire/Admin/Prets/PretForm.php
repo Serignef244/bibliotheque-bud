@@ -64,6 +64,7 @@ class PretForm extends Component
 
     public function scannerCarte($numCarte)
     {
+        $numCarte = trim($numCarte);
         $adherent = Adherent::where('num_carte', $numCarte)->first();
         if ($adherent) {
             $this->adherent_id = $adherent->id;

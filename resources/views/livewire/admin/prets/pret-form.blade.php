@@ -1,4 +1,33 @@
-<div x-data="scanner">
+<div x-data="{
+    showScanner: false,
+    html5QrcodeScanner: null,
+
+    startScanner() {
+        this.showScanner = true;
+        this.$nextTick(() => {
+            if(!this.html5QrcodeScanner) {
+                this.html5QrcodeScanner = new Html5QrcodeScanner('reader', { fps: 10, qrbox: {width: 250, height: 250} }, false);
+            }
+            this.html5QrcodeScanner.render((decodedText, decodedResult) => {
+                console.log('Scan result: ' + decodedText);
+                this.stopScanner();
+                $wire.scannerCarte(decodedText);
+            }, (errorMessage) => {
+                // Ignore errors
+            });
+        });
+    },
+
+    stopScanner() {
+        this.showScanner = false;
+        if (this.html5QrcodeScanner) {
+            this.html5QrcodeScanner.clear().catch(error => {
+                console.error('Failed to clear html5QrcodeScanner. ', error);
+            });
+            this.html5QrcodeScanner = null;
+        }
+    }
+}">
     @error('general')
     <div class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">{{ $message }}</div>
     @enderror
@@ -120,38 +149,6 @@
     @push('scripts')
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('scanner', () => ({
-                showScanner: false,
-                html5QrcodeScanner: null,
-
-                startScanner() {
-                    this.showScanner = true;
-                    this.$nextTick(() => {
-                        this.html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: {width: 250, height: 250} }, false);
-                        this.html5QrcodeScanner.render((decodedText, decodedResult) => {
-                            console.log(`Scan result: ${decodedText}`);
-                            this.stopScanner();
-                            // Appeler Livewire
-                            this.$wire.scannerCarte(decodedText);
-                        }, (errorMessage) => {
-                            // Erreurs ignorées silencieusement
-                        });
-                    });
-                },
-
-                stopScanner() {
-                    this.showScanner = false;
-                    if (this.html5QrcodeScanner) {
-                        this.html5QrcodeScanner.clear().catch(error => {
-                            console.error("Failed to clear html5QrcodeScanner. ", error);
-                        });
-                        this.html5QrcodeScanner = null;
-                    }
-                }
-            }));
-        });
-        
         // Listen to livewire event to alert if scan failed
         window.addEventListener('carte-scanned', event => {
             if(!event.detail[0].success) {
