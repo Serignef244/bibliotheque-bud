@@ -23,7 +23,7 @@ class CarteAdherentService
         $adherent->load('typeAdherent');
 
         // Générer le QR Code
-        $qrCodeSvg = $this->qrCodeService->generateSvgRaw($adherent->num_carte, 80);
+        $qrCodeSvg = $this->qrCodeService->generateSvgRaw($adherent->num_carte, 60);
         $qrCodeBase64 = base64_encode($qrCodeSvg);
 
         // Générer le Code-barres

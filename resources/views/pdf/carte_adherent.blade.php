@@ -182,19 +182,20 @@
 
         .back-top-right {
             float: right;
-            width: 10mm;
+            width: 20mm;
             text-align: right;
         }
         .qr-box {
             background: white;
-            padding: 0.5mm;
-            border-radius: 0.5mm;
-            width: 10mm;
-            height: 10mm;
+            padding: 1mm;
+            border-radius: 1mm;
+            width: 18mm;
+            height: 18mm;
         }
         .qr-box img {
-            width: 100%;
-            height: 100%;
+            width: 16mm;
+            height: 16mm;
+            object-fit: contain;
         }
 
         .back-middle {
