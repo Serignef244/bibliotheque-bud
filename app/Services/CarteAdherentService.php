@@ -25,9 +25,9 @@ class CarteAdherentService
         // Générer le QR Code en SVG (PNG requiert Imagick qui n'est pas sur le serveur)
         $qrCodeSvg = $this->qrCodeService->generateSvgRaw($adherent->num_carte, 100);
         
-        // Remplacer width et height absolus par 100% pour que dompdf puisse le redimensionner sans le couper
-        $qrCodeSvg = preg_replace('/width="[^"]+"/', 'width="100%"', $qrCodeSvg, 1);
-        $qrCodeSvg = preg_replace('/height="[^"]+"/', 'height="100%"', $qrCodeSvg, 1);
+        // Définir des dimensions absolues (28mm) directement sur le SVG pour dompdf
+        $qrCodeSvg = preg_replace('/width="[^"]+"/', 'width="28mm"', $qrCodeSvg, 1);
+        $qrCodeSvg = preg_replace('/height="[^"]+"/', 'height="28mm"', $qrCodeSvg, 1);
         
         $qrCodeBase64 = base64_encode($qrCodeSvg);
 
