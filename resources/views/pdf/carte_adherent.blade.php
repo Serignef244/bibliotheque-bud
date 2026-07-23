@@ -133,25 +133,29 @@
         .info-grid {
             width: 100%;
         }
-        .info-col {
+        .info-col-1 {
             float: left;
-            width: 50%;
+            width: 55%;
+        }
+        .info-col-2 {
+            float: left;
+            width: 45%;
         }
 
         .info-row {
             margin-bottom: 2mm;
         }
         .info-label {
-            font-size: 4.5pt;
+            font-size: 4pt;
             color: #4A5568;
-            margin-bottom: 0.2mm;
-            line-height: 1.1;
+            margin-bottom: 0.5mm;
+            line-height: 1;
         }
         .info-value {
-            font-size: 6pt;
+            font-size: 5pt;
             color: #0B2E59;
             font-weight: bold;
-            line-height: 1.2;
+            line-height: 1;
         }
 
         .front-footer {
@@ -197,8 +201,9 @@
             overflow: hidden;
         }
         .qr-center-box img {
-            width: 100%;
-            height: 100%;
+            width: 28mm;
+            height: 28mm;
+            display: block;
         }
         .qr-text {
             font-family: monospace;
@@ -254,7 +259,7 @@
                     <div class="user-type">ADHÉRENT</div>
                     
                     <div class="info-grid">
-                        <div class="info-col">
+                        <div class="info-col-1">
                             <div class="info-row">
                                 <div class="info-label">ID Adhérent</div>
                                 <div class="info-value">{{ $adherent->num_carte }}</div>
@@ -265,7 +270,7 @@
                                 <div class="info-value">{{ $adherent->date_inscription->format('d/m/Y') }}</div>
                             </div>
                         </div>
-                        <div class="info-col">
+                        <div class="info-col-2">
                             <div class="info-row">
                                 <div class="info-label">Catégorie</div>
                                 <div class="info-value">{{ $adherent->typeAdherent->nom ?? 'Standard' }}</div>
