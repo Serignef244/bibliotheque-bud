@@ -133,7 +133,7 @@
                             console.log(`Scan result: ${decodedText}`);
                             this.stopScanner();
                             // Appeler Livewire
-                            @this.scannerCarte(decodedText);
+                            this.$wire.scannerCarte(decodedText);
                         }, (errorMessage) => {
                             // Erreurs ignorées silencieusement
                         });
@@ -155,8 +155,9 @@
         // Listen to livewire event to alert if scan failed
         window.addEventListener('carte-scanned', event => {
             if(!event.detail[0].success) {
-                // If we want to show a toast, we could do it here
-                console.log("Scanner failed to find user");
+                alert("Erreur: Ce QR code n'appartient à aucun adhérent.");
+            } else {
+                // Succès: L'adhérent est automatiquement sélectionné
             }
         });
     </script>
