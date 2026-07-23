@@ -332,7 +332,7 @@
                 </div>
                 <div class="back-top-right">
                     <div class="qr-box">
-                        <img src="data:image/svg+xml;base64,{!! $qrCodeBase64 !!}" alt="QR">
+                        <img src="data:image/png;base64,{!! $qrCodeBase64 !!}" alt="QR">
                     </div>
                 </div>
             </div>

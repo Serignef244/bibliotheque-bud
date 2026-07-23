@@ -51,6 +51,14 @@
                         {{ $adherent->statut?->label() ?? $adherent->statut }}
                     </span>
                 </div>
+                
+                <div class="mt-6 pt-6 border-t border-slate-100 flex flex-col items-center">
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">QR Code Adhérent</p>
+                    <div class="p-2 bg-white border border-slate-200 rounded-xl shadow-sm inline-block">
+                        {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(120)->margin(1)->generate($adherent->num_carte) !!}
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-2">Scanner pour l'emprunt</p>
+                </div>
             </div>
         </div>
 
