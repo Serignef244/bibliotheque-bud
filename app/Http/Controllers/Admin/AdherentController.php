@@ -125,7 +125,11 @@ class AdherentController extends Controller
         $pdfPath = $this->carteService->generatePDF($adherent);
         $fullPath = \Illuminate\Support\Facades\Storage::disk('public')->path($pdfPath);
 
-        return response()->download($fullPath, "carte_{$adherent->num_carte}.pdf");
+        return response()->download($fullPath, "carte_{$adherent->num_carte}.pdf", [
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0'
+        ]);
     }
 
     public function history(Adherent $adherent): View
