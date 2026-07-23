@@ -122,6 +122,9 @@ class AdherentController extends Controller
     {
         Gate::authorize('generateCard', $adherent);
 
+        // Vider le cache des vues pour s'assurer qu'on utilise le dernier template
+        \Illuminate\Support\Facades\Artisan::call('view:clear');
+
         $pdfPath = $this->carteService->generatePDF($adherent);
         $fullPath = \Illuminate\Support\Facades\Storage::disk('public')->path($pdfPath);
 
