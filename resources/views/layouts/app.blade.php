@@ -14,7 +14,7 @@
         <!-- PWA & iOS Spécifique -->
         <link rel="manifest" href="{{ asset('manifest.json') }}">
         <meta name="theme-color" content="#1E3A8A">
-        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="apple-mobile-web-app-title" content="BiblioSmart">
         <link rel="apple-touch-icon" href="/icons/icon-180x180.png" sizes="180x180">
