@@ -240,11 +240,11 @@
                     <div class="space-y-3 font-mono text-sm bg-white p-5 rounded-xl border border-blue-50 shadow-sm relative">
                         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 border-b border-gray-50 pb-2">
                             <span class="text-gray-400 font-sans text-xs uppercase tracking-wider">Email de connexion</span> 
-                            <span class="font-semibold text-gray-800 select-all">admin@admin.com</span>
+                            <span class="font-semibold text-gray-800 select-all">admin@bibliotheque.local</span>
                         </div>
                         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 pt-1">
                             <span class="text-gray-400 font-sans text-xs uppercase tracking-wider">Mot de passe</span> 
-                            <span class="font-semibold text-gray-800 select-all">password</span>
+                            <span class="font-semibold text-gray-800 select-all">Admin12345!</span>
                         </div>
                     </div>
                 </div>
@@ -265,11 +265,11 @@
                     <div class="space-y-3 font-mono text-sm bg-white p-5 rounded-xl border border-green-50 shadow-sm relative">
                         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 border-b border-gray-50 pb-2">
                             <span class="text-gray-400 font-sans text-xs uppercase tracking-wider">Email de connexion</span> 
-                            <span class="font-semibold text-gray-800 select-all">biblio@biblio.com</span>
+                            <span class="font-semibold text-gray-800 select-all">bibliothecaire@bibliotheque.local</span>
                         </div>
                         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 pt-1">
                             <span class="text-gray-400 font-sans text-xs uppercase tracking-wider">Mot de passe</span> 
-                            <span class="font-semibold text-gray-800 select-all">password</span>
+                            <span class="font-semibold text-gray-800 select-all">Biblio12345!</span>
                         </div>
                     </div>
                 </div>
