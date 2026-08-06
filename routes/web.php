@@ -6,7 +6,7 @@ use App\Http\Controllers\Adherent\TableauBordController;
 use App\Livewire\Actions\Logout;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'home')->name('home');
+Route::view('/', 'welcome')->name('home');
 
 // Route temporaire pour nettoyer la base de données sur Render
 Route::get('/dev/wipe-db', function () {
