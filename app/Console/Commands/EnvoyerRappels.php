@@ -36,7 +36,7 @@ class EnvoyerRappels extends Command
             
             $this->info("{$count} adhérent(s) trouvé(s).");
             
-            $this->withProgressBar($adherents, function ($adherent) {
+            $this->withProgressBar($adherents, function (\App\Models\Adherent $adherent) use ($jours) {
                 if ($adherent->user) {
                     $adherent->user->notify(new \App\Notifications\AdhesionExpirantNotification($adherent, $jours));
                 }
