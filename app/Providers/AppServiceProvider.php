@@ -37,6 +37,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        \Illuminate\Pagination\Paginator::useTailwind();
+
+        \Illuminate\Support\Facades\Event::listen(
+            \App\Events\OuvrageAjoute::class,
+            \App\Listeners\NotifierAdherentsNouveauLivre::class
+        );
+
         Adherent::observe(AdherentObserver::class);
     }
 }

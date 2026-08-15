@@ -34,7 +34,7 @@ class OuvrageService
 
     public function creer(OuvrageDTO $dto, ?UploadedFile $fichierImage = null): Ouvrage
     {
-        return DB::transaction(function () use ($dto, $fichierImage) {
+        $ouvrageCree = DB::transaction(function () use ($dto, $fichierImage) {
             $donnees = $dto->toArray();
 
             if ($fichierImage) {
@@ -53,6 +53,10 @@ class OuvrageService
 
             return $ouvrage->load(['categories', 'exemplaires']);
         });
+
+        event(new \App\Events\OuvrageAjoute($ouvrageCree));
+
+        return $ouvrageCree;
     }
 
     public function modifier(Ouvrage $ouvrage, OuvrageDTO $dto, ?UploadedFile $fichierImage = null): Ouvrage
