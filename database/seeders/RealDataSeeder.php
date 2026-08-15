@@ -211,8 +211,7 @@ class RealDataSeeder extends Seeder
                     Exemplaire::create([
                         'ouvrage_id' => $ouvrage->id,
                         'code_barre' => $code_barre,
-                        'rayon' => 'A' . rand(1, 5),
-                        'etagere' => rand(1, 10),
+                        'cote' => 'A' . rand(1, 5) . '-' . rand(1, 10),
                         'statut' => 'disponible',
                     ]);
                 }
