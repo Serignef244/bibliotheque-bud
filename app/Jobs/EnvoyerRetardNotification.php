@@ -17,6 +17,10 @@ class EnvoyerRetardNotification implements ShouldQueue
 
     public function handle(): void
     {
+        if ($this->pret->adherent->user) {
+            $this->pret->adherent->user->notify(new \App\Notifications\PretEnRetardNotification($this->pret));
+        }
+
         // Mail::to($this->pret->adherent->email)->send(new RetardNotificationMail($this->pret));
         \Log::info("Notification de retard envoyée à {$this->pret->adherent->email} pour le prêt #{$this->pret->id}");
     }

@@ -17,6 +17,10 @@ class EnvoyerRappelEcheance implements ShouldQueue
 
     public function handle(): void
     {
+        if ($this->pret->adherent->user) {
+            $this->pret->adherent->user->notify(new \App\Notifications\PretEcheanceNotification($this->pret));
+        }
+
         // Mail::to($this->pret->adherent->email)->send(new RappelEcheanceMail($this->pret));
         \Log::info("Rappel d'échéance envoyé à {$this->pret->adherent->email} pour le prêt #{$this->pret->id}");
     }

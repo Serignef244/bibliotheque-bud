@@ -37,6 +37,10 @@ class EnvoyerRappels extends Command
             $this->info("{$count} adhérent(s) trouvé(s).");
             
             $this->withProgressBar($adherents, function ($adherent) {
+                if ($adherent->user) {
+                    $adherent->user->notify(new \App\Notifications\AdhesionExpirantNotification($adherent, $jours));
+                }
+                
                 // TODO: Envoyer un email de rappel
                 // Mail::to($adherent->email)->send(new RappelExpirationMail($adherent));
                 
