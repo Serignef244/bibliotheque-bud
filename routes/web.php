@@ -14,7 +14,11 @@ Route::get('/test-notifications', function () {
     \Illuminate\Support\Facades\Artisan::call('prets:verifier-retards');
     \Illuminate\Support\Facades\Artisan::call('prets:envoyer-rappels', ['jours' => 3]);
     \Illuminate\Support\Facades\Artisan::call('adherents:envoyer-rappels', ['jours' => 7]);
-    return '✅ Vérification effectuée ! Les notifications ont été générées dans la base de données. Allez voir sur le tableau de bord de l\'adhérent.';
+    
+    // Forcer le traitement de la file d'attente (Jobs en arrière-plan)
+    \Illuminate\Support\Facades\Artisan::call('queue:work', ['--stop-when-empty' => true]);
+    
+    return '✅ Vérification et traitement de la file d\'attente effectués ! Les notifications ont été générées.';
 });
 
 Route::get('/dashboard', function () {
