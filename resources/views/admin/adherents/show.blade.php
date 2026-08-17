@@ -116,6 +116,15 @@
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
                 <h3 class="text-lg font-semibold text-slate-900 mb-4 border-b border-slate-100 pb-3">Actions rapides</h3>
                 <div class="flex flex-wrap gap-3">
+                    <form action="{{ route('admin.adherents.renouveler', $adherent) }}" method="POST" class="inline">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-lg text-sm font-semibold transition-colors"
+                                onclick="return confirm('Voulez-vous renouveler l\'adhésion pour une année supplémentaire ?')">
+                            🔄 Renouveler l'adhésion
+                        </button>
+                    </form>
+
                     @if($adherent->statut === \App\Enums\StatutAdherent::ACTIF)
                         <form action="{{ route('admin.adherents.suspendre', $adherent) }}" method="POST" class="inline">
                             @csrf

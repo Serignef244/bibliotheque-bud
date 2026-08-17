@@ -136,6 +136,22 @@ class AdherentService
         return $adherent->fresh();
     }
 
+    public function renouveler(Adherent $adherent): Adherent
+    {
+        // On rajoute 1 an à la date d'expiration actuelle (ou à partir d'aujourd'hui si déjà expirée depuis longtemps)
+        $nouvelleDate = $adherent->date_expiration->isPast() 
+            ? now()->addYear() 
+            : $adherent->date_expiration->addYear();
+
+        $this->repository->update($adherent, [
+            'statut' => StatutAdherent::ACTIF->value,
+            'date_expiration' => $nouvelleDate,
+            'motif_radiation' => null,
+        ]);
+
+        return $adherent->fresh();
+    }
+
     public function peutEmprunter(int $adherentId): bool
     {
         return $this->repository->canBorrow($adherentId);

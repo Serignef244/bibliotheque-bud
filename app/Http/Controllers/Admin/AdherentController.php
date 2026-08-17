@@ -118,6 +118,13 @@ class AdherentController extends Controller
         return back()->with('success', "Adhérent « {$adherent->prenom} {$adherent->nom} » radié.");
     }
 
+    public function renouveler(Adherent $adherent): RedirectResponse
+    {
+        Gate::authorize('update', $adherent);
+        $this->adherentService->renouveler($adherent);
+        return back()->with('success', "L'adhésion de « {$adherent->prenom} {$adherent->nom} » a été renouvelée d'un an avec succès.");
+    }
+
     public function carte(Adherent $adherent): BinaryFileResponse
     {
         Gate::authorize('generateCard', $adherent);

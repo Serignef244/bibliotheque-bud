@@ -42,6 +42,7 @@ Route::middleware(['auth', 'role:admin,bibliothecaire', 'force_password_change',
         Route::put('adherents/{adherent}/suspendre', [AdherentController::class, 'suspendre'])->name('adherents.suspendre');
         Route::put('adherents/{adherent}/reactiver', [AdherentController::class, 'reactiver'])->name('adherents.reactiver');
         Route::put('adherents/{adherent}/radier', [AdherentController::class, 'radier'])->name('adherents.radier');
+        Route::put('adherents/{adherent}/renouveler', [AdherentController::class, 'renouveler'])->name('adherents.renouveler');
         Route::get('adherents/{adherent}/carte', [AdherentController::class, 'carte'])->name('adherents.carte');
         Route::get('adherents/{adherent}/history', [AdherentController::class, 'history'])->name('adherents.history');
 
