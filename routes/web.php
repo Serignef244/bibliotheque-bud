@@ -21,6 +21,12 @@ Route::get('/test-notifications', function () {
     return '✅ Vérification et traitement de la file d\'attente effectués ! Les notifications ont été générées.';
 });
 
+Route::get('/seed-dashboard', function () {
+    \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'DemoSeeder']);
+    \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'DashboardSeeder']);
+    return '✅ Données de test injectées ! Votre tableau de bord est maintenant animé. Allez vérifier : <a href="/admin/dashboard">Retour au Dashboard</a>';
+});
+
 Route::get('/dashboard', function () {
     $redirect = redirectByRole(auth()->user());
     if ($redirect !== route('home')) {
