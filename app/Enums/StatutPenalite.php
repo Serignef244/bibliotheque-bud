@@ -17,6 +17,15 @@ enum StatutPenalite: string
         };
     }
 
+    public function color(): string
+    {
+        return match ($this) {
+            self::IMPAYE => 'bg-red-100 text-red-800',
+            self::PAYE => 'bg-green-100 text-green-800',
+            self::PARTIEL => 'bg-yellow-100 text-yellow-800',
+        };
+    }
+
     /**
      * @return array<int, array{value: string, label: string}>
      */
