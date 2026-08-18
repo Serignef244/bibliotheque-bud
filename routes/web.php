@@ -23,9 +23,9 @@ Route::get('/test-notifications', function () {
 
 Route::get('/seed-dashboard', function () {
     try {
-        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'DemoSeeder']);
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
         $output1 = \Illuminate\Support\Facades\Artisan::output();
-        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'DashboardSeeder']);
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'DashboardSeeder', '--force' => true]);
         $output2 = \Illuminate\Support\Facades\Artisan::output();
         return "✅ Données générées. <br><br>Log DemoSeeder: " . nl2br($output1) . "<br><br>Log DashboardSeeder: " . nl2br($output2) . "<br><br><a href='/admin/dashboard'>Retour au Dashboard</a>";
     } catch (\Exception $e) {
