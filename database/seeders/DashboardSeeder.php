@@ -40,7 +40,7 @@ class DashboardSeeder extends Seeder
             Pret::create([
                 'adherent_id' => $adherent->id,
                 'exemplaire_id' => $exemplaire->id,
-                'date_pret' => $datePret,
+                'date_emprunt' => $datePret,
                 'date_retour_prevue' => $datePret->copy()->addDays(15),
                 'statut' => StatutPret::EN_COURS->value,
                 'prolonge' => rand(0, 1) == 1,
@@ -58,10 +58,10 @@ class DashboardSeeder extends Seeder
             Pret::create([
                 'adherent_id' => $adherent->id,
                 'exemplaire_id' => $exemplaire->id,
-                'date_pret' => $datePret,
+                'date_emprunt' => $datePret,
                 'date_retour_prevue' => $datePret->copy()->addDays(15),
                 'date_retour_reelle' => $datePret->copy()->addDays(rand(5, 14)),
-                'statut' => StatutPret::RETOURNE->value,
+                'statut' => StatutPret::RENDU->value,
             ]);
             // Ils sont retournés donc exemplaires à nouveau dispos
         }
@@ -76,9 +76,9 @@ class DashboardSeeder extends Seeder
             $pret = Pret::create([
                 'adherent_id' => $adherent->id,
                 'exemplaire_id' => $exemplaire->id,
-                'date_pret' => $datePret,
+                'date_emprunt' => $datePret,
                 'date_retour_prevue' => $datePret->copy()->addDays(15), // Devait être rendu il y a 5 à 15 jours
-                'statut' => StatutPret::EN_RETARD->value,
+                'statut' => StatutPret::RETARD->value,
             ]);
 
             $exemplaire->update(['statut' => StatutExemplaire::EMPRUNTE->value]);
@@ -94,7 +94,7 @@ class DashboardSeeder extends Seeder
         }
 
         // 4. Une pénalité déjà payée pour les stats
-        $pretPaye = Pret::where('statut', StatutPret::RETOURNE->value)->first();
+        $pretPaye = Pret::where('statut', StatutPret::RENDU->value)->first();
         if ($pretPaye) {
             Penalite::create([
                 'adherent_id' => $pretPaye->adherent_id,

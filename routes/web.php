@@ -22,9 +22,15 @@ Route::get('/test-notifications', function () {
 });
 
 Route::get('/seed-dashboard', function () {
-    \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'DemoSeeder']);
-    \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'DashboardSeeder']);
-    return '✅ Données de test injectées ! Votre tableau de bord est maintenant animé. Allez vérifier : <a href="/admin/dashboard">Retour au Dashboard</a>';
+    try {
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'DemoSeeder']);
+        $output1 = \Illuminate\Support\Facades\Artisan::output();
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'DashboardSeeder']);
+        $output2 = \Illuminate\Support\Facades\Artisan::output();
+        return "✅ Données générées. <br><br>Log DemoSeeder: " . nl2br($output1) . "<br><br>Log DashboardSeeder: " . nl2br($output2) . "<br><br><a href='/admin/dashboard'>Retour au Dashboard</a>";
+    } catch (\Exception $e) {
+        return "❌ Erreur : " . $e->getMessage() . "<br>" . $e->getTraceAsString();
+    }
 });
 
 Route::get('/dashboard', function () {
