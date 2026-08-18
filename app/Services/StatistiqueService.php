@@ -163,9 +163,9 @@ class StatistiqueService
     private function getMembersTypeData(): array
     {
         $types = DB::table('adherents')
-            ->join('types_adherents', 'adherents.type_adherent_id', '=', 'types_adherents.id')
-            ->select('types_adherents.nom', DB::raw('count(adherents.id) as count'))
-            ->groupBy('types_adherents.id', 'types_adherents.nom')
+            ->join('type_adherents', 'adherents.type_adherent_id', '=', 'type_adherents.id')
+            ->select('type_adherents.nom', DB::raw('count(adherents.id) as count'))
+            ->groupBy('type_adherents.id', 'type_adherents.nom')
             ->get();
             
         $colors = ['#1E3A8A', '#3B82F6', '#22C55E', '#F59E0B', '#DBEAFE'];
