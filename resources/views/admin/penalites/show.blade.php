@@ -71,7 +71,7 @@
                 </li>
                 <li class="flex justify-between">
                     <span class="text-slate-500">Date retour réelle :</span>
-                    <span class="font-medium text-slate-900">{{ $penalite->pret->date_retour_reelle->format('d/m/Y') }}</span>
+                    <span class="font-medium text-slate-900">{{ $penalite->pret->date_retour_reelle ? $penalite->pret->date_retour_reelle->format('d/m/Y') : 'Non retourné' }}</span>
                 </li>
                 <li class="flex justify-between">
                     <span class="text-slate-500">Jours de retard :</span>
