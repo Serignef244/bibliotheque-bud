@@ -18,7 +18,7 @@ class PenaliteService
             return 0;
         }
 
-        $joursRetard = now()->diffInDays($pret->date_retour_prevue);
+        $joursRetard = (int) abs(now()->diffInDays($pret->date_retour_prevue, false));
         
         $typeNom = strtolower($pret->adherent->typeAdherent->nom ?? 'externe');
         $tarifKey = 'penalite_' . $typeNom;
@@ -38,7 +38,7 @@ class PenaliteService
             return null;
         }
 
-        $joursRetard = now()->diffInDays($pret->date_retour_prevue);
+        $joursRetard = (int) abs(now()->diffInDays($pret->date_retour_prevue, false));
 
         return Penalite::create([
             'pret_id' => $pret->id,

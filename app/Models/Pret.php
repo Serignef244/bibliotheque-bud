@@ -78,7 +78,7 @@ class Pret extends Model
         if (!$this->estEnRetard()) {
             return 0;
         }
-        return now()->diffInDays($this->date_retour_prevue);
+        return (int) abs(now()->diffInDays($this->date_retour_prevue, false));
     }
 
     public function peutEtreProlonge(): bool

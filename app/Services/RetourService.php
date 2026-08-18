@@ -51,7 +51,7 @@ class RetourService
         if (!$pret->estEnRetard()) {
             return 0;
         }
-        return now()->diffInDays($pret->date_retour_prevue);
+        return (int) abs(now()->diffInDays($pret->date_retour_prevue, false));
     }
 
     public function calculerPenalite(Pret $pret): int
