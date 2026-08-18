@@ -31,6 +31,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'force_password_change' => \App\Http\Middleware\ForcePasswordChange::class,
         ]);
 
+        $middleware->web(append: [
+            \App\Http\Middleware\RunDailyTasks::class,
+        ]);
+
         $middleware->redirectGuestsTo(fn () => route('login'));
         $middleware->trustProxies(at: '*');
     })
