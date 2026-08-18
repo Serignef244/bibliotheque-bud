@@ -8,9 +8,8 @@ use App\Services\PenaliteService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class CalculerPenaliteAutomatique implements ShouldQueue
+class CalculerPenaliteAutomatique
 {
-    use InteractsWithQueue;
 
     public function __construct(
         private readonly HistoriquePretRepositoryInterface $historiqueRepository,
