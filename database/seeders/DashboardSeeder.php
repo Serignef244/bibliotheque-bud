@@ -84,11 +84,13 @@ class DashboardSeeder extends Seeder
             $exemplaire->update(['statut' => StatutExemplaire::EMPRUNTE->value]);
 
             // Générer une pénalité non payée
+            $montant = rand(5, 15) * 100;
             Penalite::create([
                 'adherent_id' => $adherent->id,
                 'pret_id' => $pret->id,
-                'montant' => rand(5, 15) * 100, // 500 à 1500 FCFA
-                'motif' => 'Retard de restitution',
+                'montant' => $montant, // 500 à 1500 FCFA
+                'montant_restant' => $montant,
+                'jours_retard' => rand(5, 15),
                 'statut' => StatutPenalite::IMPAYE->value,
             ]);
         }
@@ -100,8 +102,10 @@ class DashboardSeeder extends Seeder
                 'adherent_id' => $pretPaye->adherent_id,
                 'pret_id' => $pretPaye->id,
                 'montant' => 1000,
-                'motif' => 'Retard de restitution',
+                'montant_restant' => 0,
+                'jours_retard' => 10,
                 'statut' => StatutPenalite::PAYE->value,
+                'date_paiement' => Carbon::now()->subDays(rand(1, 5)),
             ]);
         }
 
