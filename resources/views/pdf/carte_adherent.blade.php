@@ -120,6 +120,10 @@
             color: #0B2E59;
             margin-bottom: 0.5mm;
             line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
         }
         .user-type {
             font-size: 6pt;
@@ -132,19 +136,19 @@
 
         .info-grid {
             width: 100%;
+            border-collapse: collapse;
         }
-        .info-col-1 {
-            float: left;
+        .info-grid td {
+            vertical-align: top;
+            padding-bottom: 2mm;
+        }
+        .info-grid td.col-1 {
             width: 55%;
         }
-        .info-col-2 {
-            float: left;
+        .info-grid td.col-2 {
             width: 45%;
         }
 
-        .info-row {
-            margin-bottom: 2mm;
-        }
         .info-label {
             font-size: 4pt;
             color: #4A5568;
@@ -258,30 +262,28 @@
                     <div class="user-name">{{ mb_strtoupper($adherent->nom) }} {{ $adherent->prenom }}</div>
                     <div class="user-type">ADHÉRENT</div>
                     
-                    <div class="info-grid">
-                        <div class="info-col-1">
-                            <div class="info-row">
+                    <table class="info-grid">
+                        <tr>
+                            <td class="col-1">
                                 <div class="info-label">ID Adhérent</div>
                                 <div class="info-value">{{ $adherent->num_carte }}</div>
-                            </div>
-                            
-                            <div class="info-row">
+                            </td>
+                            <td class="col-2">
+                                <div class="info-label">Catégorie</div>
+                                <div class="info-value">{{ mb_strimwidth($adherent->typeAdherent->nom ?? 'Standard', 0, 15, '...') }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1">
                                 <div class="info-label">Date d'émission</div>
                                 <div class="info-value">{{ $adherent->date_inscription->format('d/m/Y') }}</div>
-                            </div>
-                        </div>
-                        <div class="info-col-2">
-                            <div class="info-row">
-                                <div class="info-label">Catégorie</div>
-                                <div class="info-value">{{ $adherent->typeAdherent->nom ?? 'Standard' }}</div>
-                            </div>
-
-                            <div class="info-row">
+                            </td>
+                            <td class="col-2">
                                 <div class="info-label">Date d'expiration</div>
                                 <div class="info-value">{{ $adherent->date_expiration ? $adherent->date_expiration->format('d/m/Y') : 'Illimitée' }}</div>
-                            </div>
-                        </div>
-                    </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
