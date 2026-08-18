@@ -89,7 +89,7 @@ class DashboardSeeder extends Seeder
                 'pret_id' => $pret->id,
                 'montant' => rand(5, 15) * 100, // 500 à 1500 FCFA
                 'motif' => 'Retard de restitution',
-                'statut' => StatutPenalite::NON_PAYEE->value,
+                'statut' => StatutPenalite::IMPAYE->value,
             ]);
         }
 
@@ -101,7 +101,7 @@ class DashboardSeeder extends Seeder
                 'pret_id' => $pretPaye->id,
                 'montant' => 1000,
                 'motif' => 'Retard de restitution',
-                'statut' => StatutPenalite::PAYEE->value,
+                'statut' => StatutPenalite::PAYE->value,
             ]);
         }
 
