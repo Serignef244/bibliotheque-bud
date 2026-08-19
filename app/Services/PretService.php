@@ -72,69 +72,75 @@ class PretService
             throw new \Exception('Cet exemplaire n\'est pas disponible');
         }
 
-        $adherent = Adherent::with('typeAdherent')->find($dto->adherent_id);
-        $dureePret = \App\Models\Setting::get('pret_duree', 14);
-        $dateRetourPrevue = now()->addDays($dureePret);
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($dto) {
+            $adherent = Adherent::with('typeAdherent')->find($dto->adherent_id);
+            $dureePret = \App\Models\Setting::get('pret_duree', 14);
+            $dateRetourPrevue = now()->addDays($dureePret);
 
-        $pret = $this->pretRepository->create([
-            'adherent_id' => $dto->adherent_id,
-            'exemplaire_id' => $dto->exemplaire_id,
-            'date_emprunt' => $dto->date_emprunt ?? now(),
-            'date_retour_prevue' => $dateRetourPrevue,
-            'statut' => 'en_cours',
-            'remarques' => $dto->remarques,
-        ]);
-
-        $pret->load('adherent', 'exemplaire.ouvrage');
-
-        $exemplaire = $pret->exemplaire;
-        if ($exemplaire) {
-            $exemplaire->update([
-                'statut' => 'emprunte',
+            $pret = $this->pretRepository->create([
+                'adherent_id' => $dto->adherent_id,
+                'exemplaire_id' => $dto->exemplaire_id,
                 'date_emprunt' => $dto->date_emprunt ?? now(),
+                'date_retour_prevue' => $dateRetourPrevue,
+                'statut' => 'en_cours',
+                'remarques' => $dto->remarques,
             ]);
-        }
 
-        event(new PretEffectue($pret, $pret->adherent, $pret->exemplaire));
+            $pret->load('adherent', 'exemplaire.ouvrage');
 
-        return PretDTO::fromModel($pret);
+            $exemplaire = $pret->exemplaire;
+            if ($exemplaire) {
+                $exemplaire->update([
+                    'statut' => 'emprunte',
+                    'date_emprunt' => $dto->date_emprunt ?? now(),
+                ]);
+            }
+
+            event(new PretEffectue($pret, $pret->adherent, $pret->exemplaire));
+
+            return PretDTO::fromModel($pret);
+        });
     }
 
     public function retourner(int $pretId): RetourDTO
     {
-        $pret = $this->pretRepository->find($pretId);
-        if (!$pret) {
-            throw new \Exception('Prêt non trouvé');
-        }
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($pretId) {
+            $pret = $this->pretRepository->find($pretId);
+            if (!$pret) {
+                throw new \Exception('Prêt non trouvé');
+            }
 
-        if ($pret->statut === 'rendu') {
-            throw new \Exception('Ce prêt a déjà été rendu');
-        }
+            if ($pret->statut === 'rendu') {
+                throw new \Exception('Ce prêt a déjà été rendu');
+            }
 
-        $retourDTO = $this->retourService->enregistrerRetour($pret);
+            $retourDTO = $this->retourService->enregistrerRetour($pret);
 
-        event(new LivreRetourne($pret, $pret->adherent, $pret->exemplaire, $retourDTO));
+            event(new LivreRetourne($pret, $pret->adherent, $pret->exemplaire, $retourDTO));
 
-        return $retourDTO;
+            return $retourDTO;
+        });
     }
 
     public function prolonger(int $pretId): ProlongationDTO
     {
-        $pret = $this->pretRepository->find($pretId);
-        if (!$pret) {
-            throw new \Exception('Prêt non trouvé');
-        }
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($pretId) {
+            $pret = $this->pretRepository->find($pretId);
+            if (!$pret) {
+                throw new \Exception('Prêt non trouvé');
+            }
 
-        $raisonsRefus = $this->prolongationService->getRaisonsRefus($pret);
-        if (!empty($raisonsRefus)) {
-            return ProlongationDTO::refuse($pretId, implode(', ', $raisonsRefus));
-        }
+            $raisonsRefus = $this->prolongationService->getRaisonsRefus($pret);
+            if (!empty($raisonsRefus)) {
+                return ProlongationDTO::refuse($pretId, implode(', ', $raisonsRefus));
+            }
 
-        $prolongePret = $this->prolongationService->prolonger($pret);
+            $prolongePret = $this->prolongationService->prolonger($pret);
 
-        event(new PretProlonge($pret, $pret->adherent, ProlongationDTO::create($pretId, $prolongePret->date_retour_prevue)));
+            event(new PretProlonge($pret, $pret->adherent, ProlongationDTO::create($pretId, $prolongePret->date_retour_prevue)));
 
-        return ProlongationDTO::create($pretId, $prolongePret->date_retour_prevue);
+            return ProlongationDTO::create($pretId, $prolongePret->date_retour_prevue);
+        });
     }
 
     public function verifierEligibilite(int $adherentId): array

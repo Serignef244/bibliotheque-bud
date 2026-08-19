@@ -55,23 +55,25 @@ class PenaliteService
      */
     public function enregistrerPaiement(Penalite $penalite, int $montant): Penalite
     {
-        $nouveauRestant = max(0, $penalite->montant_restant - $montant);
-        
-        $penalite->update([
-            'montant_restant' => $nouveauRestant,
-            'statut' => $nouveauRestant == 0 ? StatutPenalite::PAYE : StatutPenalite::PARTIEL,
-            'date_paiement' => now(),
-        ]);
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($penalite, $montant) {
+            $nouveauRestant = max(0, $penalite->montant_restant - $montant);
+            
+            $penalite->update([
+                'montant_restant' => $nouveauRestant,
+                'statut' => $nouveauRestant == 0 ? StatutPenalite::PAYE : StatutPenalite::PARTIEL,
+                'date_paiement' => now(),
+            ]);
 
-        // Créer un historique de paiement
-        Paiement::create([
-            'penalite_id' => $penalite->id,
-            'adherent_id' => $penalite->adherent_id,
-            'montant' => $montant,
-            'date_paiement' => now(),
-        ]);
+            // Créer un historique de paiement
+            Paiement::create([
+                'penalite_id' => $penalite->id,
+                'adherent_id' => $penalite->adherent_id,
+                'montant' => $montant,
+                'date_paiement' => now(),
+            ]);
 
-        return $penalite;
+            return $penalite;
+        });
     }
 
     /**
