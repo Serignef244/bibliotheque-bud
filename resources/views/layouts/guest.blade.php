@@ -22,7 +22,13 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased bg-slate-50 text-slate-600 min-h-screen relative selection:bg-secondary selection:text-white flex flex-col">
+<body class="font-sans antialiased bg-slate-50 text-slate-600 min-h-screen relative selection:bg-secondary selection:text-white flex flex-col overflow-x-hidden">
+    <!-- Ambient Background -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-blue-100/50 blur-3xl"></div>
+        <div class="absolute top-1/2 -left-32 w-80 h-80 rounded-full bg-indigo-100/30 blur-3xl"></div>
+    </div>
+
     <!-- Header Minimaliste -->
     <header class="bg-white/80 backdrop-blur-md border-b border-slate-200/60 sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 h-20 flex items-center justify-between">
@@ -69,12 +75,12 @@
         @hasSection('content')
             @yield('content')
         @else
-            <!-- Formulaires (Login, etc.) centrés -->
-            <div class="flex-1 flex items-center justify-center px-4 py-12">
-                <div class="w-full @yield('container_width', 'max-w-md') transition-all duration-500">
-                    <div class="bg-white border border-slate-200/60 shadow-sm rounded-3xl p-8 sm:p-10 relative overflow-hidden">
+            <!-- Formulaires (Login, etc.) centrés avec élévation moderne -->
+            <div class="flex-1 flex items-center justify-center px-4 py-12 relative z-10">
+                <div class="w-full @yield('container_width', 'max-w-lg') transition-all duration-300">
+                    <div class="bg-white/95 backdrop-blur-sm border border-slate-200/80 shadow-xl shadow-blue-950/5 rounded-3xl p-7 sm:p-10 relative overflow-hidden">
                         <!-- Ligne décorative haute -->
-                        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-secondary"></div>
+                        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary via-blue-700 to-secondary"></div>
                         {{ $slot }}
                     </div>
                 </div>

@@ -1,17 +1,17 @@
 {
-  "resources/css/app.css": {
-    "file": "assets/app-DBP8BniW.css",
+  "../ISI/bibliotheque-bud/resources/css/app.css": {
+    "file": "assets/app-Bq9VpTBo.css",
     "name": "app",
     "names": [
       "app.css"
     ],
-    "src": "resources/css/app.css",
+    "src": "../ISI/bibliotheque-bud/resources/css/app.css",
     "isEntry": true
   },
-  "resources/js/app.js": {
+  "../ISI/bibliotheque-bud/resources/js/app.js": {
     "file": "assets/app-BvRk9kiK.js",
     "name": "app",
-    "src": "resources/js/app.js",
+    "src": "../ISI/bibliotheque-bud/resources/js/app.js",
     "isEntry": true
   }
 }
