@@ -26,10 +26,12 @@
                 <div class="relative z-10">
                     <div class="flex justify-between items-start mb-12">
                         <div>
-                            <span class="font-poppins font-bold text-2xl tracking-tight">Biblio<span class="text-white/70">Num</span></span>
-                            <p class="text-[10px] font-semibold tracking-widest text-white/50 uppercase mt-1">Carte d'Adhérent</p>
+                            <span class="font-poppins font-bold text-2xl tracking-tight">Biblio<span class="text-blue-300">Smart</span></span>
+                            <p class="text-[10px] font-semibold tracking-widest text-white/60 uppercase mt-1">Carte Numérique d'Adhérent</p>
                         </div>
-                        <svg class="w-10 h-10 text-white/20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                        <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white">
+                            <svg class="w-6 h-6 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
                     </div>
 
                     <div class="space-y-1">
