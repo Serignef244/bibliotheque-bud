@@ -56,6 +56,15 @@ class PretService
         return $this->pretRepository->getHistory($adherentId);
     }
 
+    public function getHistoryPaginated(int $adherentId, int $perPage = 10): LengthAwarePaginator
+    {
+        return Pret::with(['exemplaire.ouvrage', 'penalite'])
+            ->where('adherent_id', $adherentId)
+            ->where('statut', 'rendu')
+            ->orderBy('date_retour_reelle', 'desc')
+            ->paginate($perPage);
+    }
+
     public function paginate(int $perPage = 15, array $filters = []): LengthAwarePaginator
     {
         return $this->pretRepository->paginate($perPage, $filters);

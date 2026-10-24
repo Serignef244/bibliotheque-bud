@@ -76,9 +76,11 @@
                 @endforeach
             </div>
 
-            <div class="mt-8 pt-6 border-t border-slate-100">
-                {{ $history->links() ?? '' }}
-            </div>
+            @if(method_exists($history, 'links'))
+                <div class="mt-8 pt-6 border-t border-slate-100">
+                    {{ $history->links() }}
+                </div>
+            @endif
         @endif
     </div>
 </div>

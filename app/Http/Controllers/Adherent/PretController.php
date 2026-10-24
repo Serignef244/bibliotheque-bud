@@ -34,7 +34,7 @@ class PretController extends Controller
             abort(403, 'Aucun profil adhérent associé');
         }
 
-        $history = $this->pretService->getHistory($adherentId);
+        $history = $this->pretService->getHistoryPaginated($adherentId, 10);
         return view('adherent.prets.history', compact('history'));
     }
 
